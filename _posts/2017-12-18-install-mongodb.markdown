@@ -9,11 +9,11 @@ categories: nosql
 MongoDB是一个基于分布式、面向文档存储的非关系型数据库。它是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。由 C++ 语言编写，旨在为 WEB 应用处理大量数据并提供可扩展的高性能数据存储解决方案
 
 ### 特点
--无表结构
--可以像关系型数据库那样完成复杂的查询操作
-也能添加索引
-不支持JOIN查询和事务
-创建和更新数据的时候不会实时写入硬盘
+- 无表结构
+- 可以像关系型数据库那样完成复杂的查询操作
+- 也能添加索引
+- 不支持JOIN查询和事务
+- 创建和更新数据的时候不会实时写入硬盘
 
 ### 如何保存数据
 把数据和数据结构以BSON（JSON的二进制）形式保存，并把它作为值和特定的键进行关联
@@ -36,7 +36,7 @@ MongoDB是一个基于分布式、面向文档存储的非关系型数据库。�
 </table>
 
 ## 安装MongoDB
-{% highlight shell %}
+```shell_session
 [root@vm11 yum.repos.d]# vi mongodb-org-3.6.repo
 [mongodb-org-3.6]
 name=MongoDB Repository
@@ -49,12 +49,12 @@ gpgkey=https://www.mongodb.org/static/pgp/server-3.6.asc
 Redirecting to /bin/systemctl start mongod.service
 [root@vm11 yum.repos.d]# ps aux | grep mongod
 mongod    1267  0.4  7.8 1010008 80184 ?       Sl   11:47   0:36 /usr/bin/mongo  -f /etc/mongod.conf
-{% endhighlight %}
+```
 
 ## 安装PHP扩展
-{% highlight shell %}
+```shell_session
 [root@vm11 yum.repos.d]# yum install openssl openssl-devel
 [root@vm11 yum.repos.d]# sudo pecl install mongodb
 [root@vm11 yum.repos.d]# vi /usr/local/php/lib/php.ini
 extension=mongodb.so
-{% endhighlight %}
+```
