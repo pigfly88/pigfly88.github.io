@@ -1,6 +1,6 @@
 ---
-layout: post
-title:  "安装MongoDB"
+layout: default
+title:  安装MongoDB
 date:   2017-12-18
 categories: nosql
 ---
