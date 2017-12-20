@@ -135,7 +135,7 @@ pre code {
 }
 
 .post-info {
-	color: #3194d0;
+	color: #000;
 	letter-spacing: 0.5px;
 	text-align: center
 }
@@ -456,6 +456,7 @@ main,footer,.nav-container {
 	transition: all 0.2s ease-out;
 	display: inline-block;
 	margin: 0;
+	color:#000;
 	border-bottom: none;
 	padding-right: .2rem
 }
