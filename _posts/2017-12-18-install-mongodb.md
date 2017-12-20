@@ -19,42 +19,30 @@ MongoDB是一个基于分布式、面向文档存储的非关系型数据库。�
 把数据和数据结构以BSON（JSON的二进制）形式保存，并把它作为值和特定的键进行关联
 
 ### 数据库用语
+关系型数据库 | 数据库  | 表 | 记录
+面向文档数据库 | 数据库  | 集合 | 文档
 
-<table>
-<tr>
-<td>关系型数据库</td>
-<td>数据库</td>
-<td>表</td>
-<td>记录</td>
-</tr>
-<tr>
-<td>面向文档数据库</td>
-<td>数据库</td>
-<td>集合</td>
-<td>文档</td>
-</tr>
-</table>
 
 ## 安装MongoDB
 ```shell_session
-[root@vm11 yum.repos.d]# vi mongodb-org-3.6.repo
+$ cd /etc/yum.repos.d
+$ vi mongodb-org-3.6.repo
 [mongodb-org-3.6]
 name=MongoDB Repository
 baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.6/x86_64/
 gpgcheck=1
 enabled=1
 gpgkey=https://www.mongodb.org/static/pgp/server-3.6.asc
-[root@vm11 yum.repos.d]# sudo yum install -y mongodb-org
-[root@vm11 yum.repos.d]# service mongod start
-Redirecting to /bin/systemctl start mongod.service
-[root@vm11 yum.repos.d]# ps aux | grep mongod
+$ sudo yum install -y mongodb-org
+$ service mongod start
+$ ps aux | grep mongod
 mongod    1267  0.4  7.8 1010008 80184 ?       Sl   11:47   0:36 /usr/bin/mongo  -f /etc/mongod.conf
 ```
 
 ## 安装PHP扩展
-```shell_session
-[root@vm11 yum.repos.d]# yum install openssl openssl-devel
-[root@vm11 yum.repos.d]# sudo pecl install mongodb
-[root@vm11 yum.repos.d]# vi /usr/local/php/lib/php.ini
+```shell
+$ yum install openssl openssl-devel
+$ sudo pecl install mongodb
+$ vi /usr/local/php/lib/php.ini
 extension=mongodb.so
 ```
