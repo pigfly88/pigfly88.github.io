@@ -40,7 +40,7 @@ mongod    1267  0.4  7.8 1010008 80184 ?       Sl   11:47   0:36 /usr/bin/mongo 
 ```
 
 ## 安装PHP扩展
-```shell
+```shell_session
 $ yum install openssl openssl-devel
 $ sudo pecl install mongodb
 $ vi /usr/local/php/lib/php.ini
