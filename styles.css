@@ -6,7 +6,8 @@
 }
 
 html,body {
-	color: rgb(180,231,186);
+	color: #000;
+	background-color: rgb(180,231,186);
 	margin: 0;
 	padding: 0
 }
@@ -29,6 +30,27 @@ body {
 h1,h2,h3,h4,h5,h6 {
 	color: #353535;
 	line-height: normal
+}
+
+h2 { 
+    font-weight: bold;
+    color: #3194d0;
+    letter-spacing: 1.4px;
+    margin-top: 20px;
+    padding: 2px 2px 5px 2px;
+    border-bottom: solid 1px #3194d0;
+    text-align: left;
+    text-indent: 0px;
+}
+
+h3 {
+    margin: 1em 0 0.5em 0;
+    font-weight: 600;
+    text-shadow: 0 -1px 1px rgba(0,0,0,0.2);
+    line-height: 40px;
+    color: #355681;
+    padding: 0px 0px 0px 0px;
+    #border-bottom: 1px solid rgba(53,86,129, 0.3);
 }
 
 a {

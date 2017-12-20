@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title:  安装MongoDB
 date:   2017-12-18
 categories: nosql

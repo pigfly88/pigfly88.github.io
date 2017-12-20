@@ -22,13 +22,17 @@ timezone: Asia/Shanghai
 encoding: "utf-8"
 description: >- # this means to ignore newlines until "baseurl:"
   php, nosql, linux, c/c++, javascript
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
-github_username:  pigfly88
+
 paginate: 10
 
+# About
+author:
+  name:         pigfly
+  url:          https://pigfly88.github.io/
+  email:        328877098@qq.com
+  
 # Permalinks
-permalink:      /:year-:month-:day/:title
+permalink:      /:categories/:year-:month-:day/:title
 
 # Build settings
 markdown: kramdown
