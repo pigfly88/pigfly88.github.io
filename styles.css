@@ -434,78 +434,16 @@ pre code {
 	width: 80%
 }
 
-main,footer,.nav-container {
+main,footer {
 	margin: 0 auto;
 	max-width: 800px;
 	width: 80%
 }
 
-.nav {
-	box-shadow: 0 2px 2px -2px rgba(0,0,0,0.2);
-	overflow: auto
-}
 
-.nav-container {
-	margin: 1rem auto;
-	position: relative;
-	text-align: center
-}
-
-.nav-title {
-	-webkit-transition: all 0.2s ease-out;
-	-moz-transition: all 0.2s ease-out;
-	transition: all 0.2s ease-out;
-	display: inline-block;
-	margin: 0;
-	color:#000;
-	border-bottom: none;
-	padding-right: .2rem
-}
-
-.nav-title:hover,.nav-title:focus {
-	opacity: .6
-}
-
-.nav ul {
-	list-style-type: none;
-	margin: 1rem 0 0;
-	padding: 0;
-	text-align: center
-}
-
-.nav li {
-	-webkit-transition: all 0.2s ease-out;
-	-moz-transition: all 0.2s ease-out;
-	transition: all 0.2s ease-out;
-	color: #555;
-	display: inline-block;
-	opacity: .6;
-	padding: 0 2rem 0 0
-}
-
-.nav li:last-child {
-	padding-right: 0
-}
-
-.nav li:hover,.nav li:focus {
-	opacity: 1
-}
-
-.nav a {
-	color: #555;
-	font-family: "Helvetica Neue","Segoe UI",Helvetica,Arial,sans-serif
-}
 
 @media (min-width: 600px) {
-	.nav-container {
-		text-align: left
-	}
-
-	.nav ul {
-		bottom: 0;
-		position: absolute;
-		right: 0
-	}
+	
 }
 
 footer {

@@ -1,0 +1,25 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+<div class="container-fluid">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+  <a class="navbar-brand" href="#">
+  <img src="./static/redis-white.png" width="80" height="30" alt="">
+</a>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">首页 <span class="sr-only">(current)</span></a></li>
+      {% for cat in site.all_categories %}
+        <li>
+          <a href="{{cat[2]}}">
+          {{cat[1]}}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div><!-- /.navbar-collapse -->
+</div><!-- /.container-fluid -->
+</nav>

@@ -23,8 +23,6 @@ encoding: "utf-8"
 description: >- # this means to ignore newlines until "baseurl:"
   php, nosql, linux, c/c++, javascript
 
-paginate: 10
-
 # About
 author:
   name:         pigfly
@@ -33,6 +31,13 @@ author:
   
 # Permalinks
 permalink:      /:categories/:year-:month-:day/:title
+paginate: 10
+
+all_categories: [
+["php", "PHP","/categories/php.html"],
+["nosql", "NoSQL","/categories/nosql.html"],
+
+]
 
 # Build settings
 markdown: kramdown
