@@ -519,7 +519,7 @@ footer span {
 }
 
 .pagination {
-	border-top: 0.5px solid #e5e5e5;
+	border-top: 2px dashed;
 	font-family: Palatino,"Palatino LT STD","Palatino Linotype","Book Antiqua","Georgia",serif;
 	padding-top: 2rem;
 	position: relative;
@@ -567,7 +567,7 @@ footer span {
 }
 
 .catalogue-item {
-	border-bottom: 1px dashed;
+	border-bottom: 2px dashed;
 	display: block;
 	padding: 2rem 0
 }
