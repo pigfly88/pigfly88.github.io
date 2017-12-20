@@ -86,7 +86,7 @@ td {
 }
 
 pre,code {
-	font-family: Menlo,Monaco,monospace
+	font-family: "Courier New", Courier, monospace, Consolas
 }
 
 code {
@@ -135,8 +135,7 @@ pre code {
 }
 
 .post-info {
-	color: #aaa;
-	font-family: Palatino,"Palatino LT STD","Palatino Linotype","Book Antiqua","Georgia",serif;
+	color: #3194d0;
 	letter-spacing: 0.5px;
 	text-align: center
 }
@@ -146,9 +145,6 @@ pre code {
 }
 
 .post-title {
-	color: #353535;
-	font-family: "Helvetica Neue","Segoe UI",Helvetica,Arial,sans-serif;
-	font-size: 4rem;
 	margin: 1rem 0;
 	text-align: center
 }
@@ -458,9 +454,9 @@ main,footer,.nav-container {
 	-webkit-transition: all 0.2s ease-out;
 	-moz-transition: all 0.2s ease-out;
 	transition: all 0.2s ease-out;
-	color: #555;
 	display: inline-block;
 	margin: 0;
+	border-bottom: none;
 	padding-right: .2rem
 }
 
@@ -570,9 +566,8 @@ footer span {
 }
 
 .catalogue-item {
-	border-bottom: 1px solid #e5e5e5;
-	color: #555;
-	display: inline-block;
+	border-bottom: 1px dashed;
+	display: block;
 	padding: 2rem 0
 }
 
