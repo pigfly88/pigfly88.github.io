@@ -33,7 +33,7 @@ author:
 #permalink:      /:categories/:year-:month-:day/:title
 permalink: /posts/:title.html
 paginate_path: "posts/page:num"
-paginate: 1
+paginate: 20
 
 all_categories: [
 ["php", "PHP","/categories/php.html"],
