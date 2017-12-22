@@ -30,8 +30,9 @@ author:
   email:        328877098@qq.com
   
 # Permalinks
-permalink:      /:categories/:year-:month-:day/:title
-paginate_path: "categories/page:num"
+#permalink:      /:categories/:year-:month-:day/:title
+permalink: /posts/:title.html
+paginate_path: "posts/page:num"
 paginate: 1
 
 all_categories: [
