@@ -16,30 +16,18 @@
 
 # Setup
 title: pigfly
+author: pigfly
 email: 328877098@qq.com
 keywords: pigfly, php
 timezone: Asia/Shanghai
 encoding: "utf-8"
 description: >- # this means to ignore newlines until "baseurl:"
   php, nosql, linux, c/c++, javascript
-
-# About
-author:
-  name:         pigfly
-  url:          https://pigfly88.github.io/
-  email:        328877098@qq.com
   
 # Permalinks
 #permalink:      /:categories/:year-:month-:day/:title
-permalink: /posts/:title.html
-paginate_path: "posts/page:num"
+#paginate_path: "posts/page:num"
 paginate: 20
-
-all_categories: [
-["php", "PHP","/categories/php.html"],
-["nosql", "NoSQL","/categories/nosql.html"],
-
-]
 
 # Build settings
 markdown: kramdown
