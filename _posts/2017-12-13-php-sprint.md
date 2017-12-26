@@ -6,11 +6,12 @@ title:  "PHP sprintf"
 
 sprintf用来格式化字符串
 
-说明
-string sprintf ( string $format [, mixed $args [, mixed $... ]] 
-参数
-$format	
-可能的格式值：
+### 说明
+```php
+string sprintf ( string $format [, mixed $args [, mixed $... ]]
+```
+
+$format可能的格式值：
 
 %% - 返回一个百分号 %
 %b - 二进制数
@@ -37,7 +38,8 @@ $format
 注意：如果使用多个上述的格式值，它们必须按照以上顺序使用。
 
 $args	规定插到format字符串中 % 符号处的参数
-进制转换
+
+### 进制转换
 
 ```php
 echo sprintf('%d', 0b11110)."\n"; //二进制转成十进制
