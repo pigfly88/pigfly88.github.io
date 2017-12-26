@@ -7,7 +7,7 @@ title:  "PHP sprintf"
 sprintf用来格式化字符串
 
 ### 说明
-```php
+```
 string sprintf ( string $format [, mixed $args [, mixed $... ]]
 ```
 
@@ -47,7 +47,7 @@ echo sprintf('%d', 0x1e)."\n"; //十六进制转成十进制
 echo sprintf('%x', 30)."\n"; //十进制转成十六进制
 echo sprintf('%o', 30)."\n"; //十进制转成八进制，注意"%o\n"里的"o"是英文字母"o"
 
-#=>输出：30 30 30 1e 36 
+#=>30 30 30 1e 36 
 ```
 
 
@@ -74,10 +74,9 @@ string(5) "hello"
 $username = 'pigfly';
 $phone = '12345678901';
 echo sprintf("%'*11s", substr($phone, -4))."\n";
-手机号截取后只剩下后4位了，我在前面补*，那么总长度是11，s是字符串类型，%'*11s就是这个意思
+//手机号截取后只剩下后4位了，我在前面补*，那么总长度是11，s是字符串类型，%'*11s就是这个意思
 
-#=>输出：
-*******8901
+#=>*******8901
 ```
 
 ### 占位符
