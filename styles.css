@@ -90,7 +90,7 @@ pre,code {
 }
 
 code {
-	background-color: #f9f9f9;
+	background-color: #c7edcc;
 	border-radius: 3px;
 	color: #bf616a;
 	font-size: 85%;
@@ -109,7 +109,7 @@ pre code {
 }
 
 .highlight {
-	background-color: #f9f9f9;
+	background-color: #c7edcc;
 	border-radius: 3px;
 	line-height: 1.4;
 	margin: 0 0 1rem;
