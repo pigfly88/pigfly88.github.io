@@ -4,9 +4,13 @@
 
   <title>
     {% if page.title == "Home" %}
-      {{ site.title }}
+      首页
     {% else %}
-      {{ page.title }} &middot; {{ site.title }}
+      {% if page.title != "" %}
+        {{ page.title }}
+      {% else %}
+        {{ page.cate }}
+      {% endif %} &middot; {{ site.title }}
     {% endif %}
   </title>
 
