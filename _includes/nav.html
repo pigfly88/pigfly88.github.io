@@ -4,6 +4,11 @@
         <h2 class="nav-title">{{ site.title }}</h2>
       </a>
       <ul>
+        <li>
+          <a href="/index.html">
+          首页
+          </a>
+        </li>
         {% for category in site.categories %}
         <li>
           <a href="/cate/{{ category | first }}.html">
