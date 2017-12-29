@@ -16,7 +16,7 @@ MongoDB是一个基于分布式、面向文档存储的非关系型数据库。�
 - 创建和更新数据的时候不会实时写入硬盘
 
 ### 如何保存数据
-把数据和数据结构以BSON（JSON的二进制）形式保存，并把它作为值和特定的键进行关联
+把数据和数据结构以BSON（binary encoded serialization of JSON-like structure 二进制编码序列化类JSON结构）形式保存，并把它作为值和特定的键进行关联
 
 ### 数据库用语
 
