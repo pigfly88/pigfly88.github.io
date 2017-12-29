@@ -492,7 +492,8 @@ main,footer,.nav-container {
 }
 
 .nav a {
-	color: #555;
+	color: #000;
+	font-weight: bold;
 	font-family: "Helvetica Neue","Segoe UI",Helvetica,Arial,sans-serif
 }
 
