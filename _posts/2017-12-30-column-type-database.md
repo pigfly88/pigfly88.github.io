@@ -15,7 +15,7 @@ id | username | realname | age | sex | status
 对于列式数据库来说，是这样的：
 
 
-##优缺点
+## 优缺点
 
 ## 数据结构
 ```
