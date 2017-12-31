@@ -635,6 +635,20 @@ table tr:nth-child(odd) {
 background: #FFF
 }
 
+
+pre, code {
+    font: bold 18px/1.2 Consolas,"Courier New",Monaco,monospace,SimHei;
+    margin: 1em 0em;
+    padding: .5em .5em;
+    color: #DD1144;
+    background: #F5F2F0;
+    overflow: auto;
+    border: 5px solid #E0DFCC;
+    border-radius: 20px;
+    max-width: 100%;
+    max-height: 45em;
+}
+
 .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
 .highlight .gh {
