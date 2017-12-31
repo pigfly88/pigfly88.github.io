@@ -636,7 +636,9 @@ background: #FFF
 }
 
 
-pre,code{font:bold 18px/1.2 Consolas,"Courier New",Monaco,monospace,SimHei;margin:1em 0em;padding:.5em .5em;color:#DD1144;background:#F5F2F0;overflow:auto;border:5px solid #E0DFCC;border-radius:20px;max-width:100%;max-height: 45em;}code{/* margin:0 2px 0 2px; */padding:4px 0 0 0;border:2px solid #E0DFCC;border-radius:4px;}pre code{border:0;padding:0 0 0 0;}
+pre,code{font-family: "Source Code Pro",Consolas,"Andale Mono WT","Andale Mono","Lucida Console","Lucida Sans Typewriter","DejaVu Sans Mono","Bitstream Vera Sans Mono","Liberation Mono","Nimbus Mono L",Monaco,"Courier New",Courier,monospace;font-weight: normal;font-style: normal;font-size: 1em;margin:1em 0em;padding:.5em .5em;color:#DD1144;overflow-x:auto;border:5px solid #E0DFCC;border-radius:20px;max-width:100%;max-height: 45em;}
+code{/* margin:0 2px 0 2px; */padding:4px 0 0 0;border:2px solid #E0DFCC;border-radius:4px;}
+pre code{border:0;padding:0 0 0 0;}
 
 .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
@@ -854,3 +856,5 @@ div[class="highlighter-rouge"] > pre[class="highlight"] {
   background:black;
 }
 .lineno {color: #f8f8f2 } /*Number of line*/
+
+.post p {text-indent: 2em}
