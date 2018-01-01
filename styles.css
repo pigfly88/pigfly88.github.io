@@ -465,11 +465,11 @@ main,footer,.nav-container {
 	border-bottom: none;
 	padding-right: .2rem
 }
-
+/*
 .nav-title:hover,.nav-title:focus {
 	opacity: .6
 }
-
+*/
 .nav ul {
 	list-style-type: none;
 	margin: 1rem 0 0;
@@ -497,8 +497,10 @@ main,footer,.nav-container {
 
 .nav a {
 	color: #000;
+}
+
+.nav a.nav_active {
 	font-weight: bold;
-	font-family: "Helvetica Neue","Segoe UI",Helvetica,Arial,sans-serif
 }
 
 @media (min-width: 600px) {
@@ -637,7 +639,7 @@ background: #FFF
 }
 
 
-pre,code{font-family: Monaco,Consolas,Courier,monospace,"Source Code Pro";border-left: 15px solid #c9c9c9;font-weight: normal;font-style: normal;font-size: 0.8em;margin:1em 0em;padding:.5em .5em;color:#DD1144;overflow-x:auto;/*border:5px solid #E0DFCC;border-radius:20px;*/max-width:100%;max-height: 45em;}
+pre,code{font-family: Monaco,Consolas,Courier,monospace,"Source Code Pro";border-left: 15px solid #555;font-weight: normal;font-style: normal;font-size: 0.8em;margin:1em 0em;padding:.5em .5em;color:#DD1144;overflow-x:auto;/*border:5px solid #E0DFCC;border-radius:20px;*/max-width:100%;max-height: 45em;}
 code{/* margin:0 2px 0 2px; */padding:4px 0 0 0;border:2px solid #E0DFCC;border-radius:4px;}
 pre code{border:0;padding:0 0 0 0;}
 

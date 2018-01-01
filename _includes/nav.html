@@ -10,8 +10,9 @@
           </a>
         </li>
         {% for category in site.categories %}
+        {% assign catename = category | first %}
         <li>
-          <a href="/cate/{{ category | first }}.html">
+          <a {% if page.categories==catename %}class="nav_active"{% endif %} href="/cate/{{ category | first }}.html">
           {{ category | first }}
           </a>
         </li>
