@@ -4,7 +4,7 @@ category: "php"
 title:  "ThinkPHP5源码解析(1)数据库"
 ---
 
-TP5的数据库操作全部通过Db类完成，比如简单的`Db::query()`、`Db::execute()`，还有链式操作`Db::table('user')->where('id=1')->select()`，下面就通过源码来了解其工作流程
+TP5的数据库操作全部通过Db类完成，比如简单的*Db::query()*、*Db::execute()*，还有链式操作*Db::table('user')->where('id=1')->select()*，下面就通过源码来了解其工作流程
 
 看代码之前，先看看涉及到的类都有哪些，tp5的数据库相关的类有以下几个：
 
@@ -132,7 +132,7 @@ abstract class Connection
 
 ### 结论
 Db::query()触发Db::__callStatic()，实例化Mysql连接器并调用Mysql->query()，而Mysql连接器继承了Connection，所以实际上是调用了Connection->query()
-![query方法](images/137801-20171211095926193-77107365.png)
+![query方法](/images/137801-20171211095926193-77107365.png)
 
 
 ## Db::table('user')->where('id=1')->select()发生了什么？
@@ -242,4 +242,4 @@ Builder通过$options替换sql模板拿到sql
 
 ### 结论
 Db::table()触发了__callStatic()实例化Connection并调用table()，由于Connection也没有定义table()，又触发了自身的__call()实例化Query并调用table()，table()返回$this实现链式操作DB::table()->where()->select()，而select又调用Builder->select()拿到sql，最终调用Connection->query()获取查询结果，固完整的类图表示如下：
-![链式操作](images/137801-20171208115632249-340937183.png)
+![链式操作](/images/137801-20171208115632249-340937183.png)
