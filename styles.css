@@ -35,8 +35,9 @@ h1,h2,h3,h4,h5,h6 {
 
 h2 { 
     font-weight: bold;
+    font-family: Monaco,Consolas,"Helvetica Neue", Helvetica, Arial, sans-serif;
 	text-shadow: 0 -1px 1px rgba(0,0,0,0.2);
-    color: #355681;
+    color: #3194d0;
     letter-spacing: 1.4px;
     margin-top: 20px;
     padding: 2px 2px 5px 2px;
@@ -48,6 +49,7 @@ h2 {
 h3 {
     margin: 1em 0 0.5em 0;
     font-weight: blod;
+    font-family: Monaco,Consolas,"Helvetica Neue", Helvetica, Arial, sans-serif;
     text-shadow: 0 -1px 1px rgba(0,0,0,0.2);
     line-height: 40px;
     color: #355681;
@@ -406,7 +408,7 @@ pre code {
 
 .post p {
 	margin: 0 0 1rem;
-	text-align: justify
+	#text-align: justify
 }
 
 .post a:hover {
