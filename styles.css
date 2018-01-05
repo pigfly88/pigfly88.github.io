@@ -436,6 +436,7 @@ pre code {
     background-color: #fff;
     border-radius: 5px;
     margin: auto 3px;
+    text-indent: 0;
 }
 
 .css .o,.css .o+.nt,.css .nt+.nt {
