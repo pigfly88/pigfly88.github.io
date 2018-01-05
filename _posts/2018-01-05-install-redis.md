@@ -12,7 +12,7 @@ keywords: install Redis
 - 虚拟内存
 
 ### 字符串结构体
-redis把所有数据都通过SDS（simple dynamic string简单动态字符串）保存成字符串类型
+redis把所有数据都通过*SDS*（simple dynamic string简单动态字符串）保存成字符串类型
 ```c
 struct sdshdr {
     // 存储字符串的字符数组
