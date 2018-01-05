@@ -26,7 +26,7 @@ struct sdshdr {
 ```
 
 ### 虚拟内存
-跟MongoDB不同，Redis没有使用内存映射，而是自己实现了虚拟内存
+跟MongoDB不同，Redis没有使用内存映射，而是自己实现了[虚拟内存](http://www.redis.cn/topics/internals-vm)
 
 ## 安装
 ```shell_session
