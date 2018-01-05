@@ -584,10 +584,17 @@ footer span {
 	right: 0
 }
 
+.catalogue-item div {
+    padding-left: 10px;
+    border-left-width: 3px;
+    border-left-style: solid;
+    border-left-color: #3194d0;
+}
+
 .catalogue-item {
-	border-bottom: 2px dashed #000;
+	border-bottom: 1px dashed #000;
 	display: block;
-	padding: 2rem 0
+	padding: 1rem 0
 }
 
 .catalogue-item:hover .catalogue-line,.catalogue-item:focus .catalogue-line {
@@ -870,4 +877,4 @@ div[class="highlighter-rouge"] > pre[class="highlight"] {
 }
 .lineno {color: #f8f8f2 } /*Number of line*/
 
-/*.post p {text-indent: 2em}*/
+.post p {text-indent: 2em}
