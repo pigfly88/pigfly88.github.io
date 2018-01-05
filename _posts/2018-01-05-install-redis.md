@@ -2,6 +2,7 @@
 layout: post
 title:  安装Redis
 categories: nosql
+keywords: install Redis
 ---
 
 ## 介绍
@@ -29,7 +30,7 @@ struct sdshdr {
 跟MongoDB不同，Redis没有使用内存映射，而是自己实现了[虚拟内存](http://www.redis.cn/topics/internals-vm)
 
 ## 安装
-```shell_session
+```shell
 $ cd /usr/local/src
 $ wget http://download.redis.io/releases/redis-4.0.2.tar.gz
 $ tar -zxvf redis-4.0.2.tar.gz
