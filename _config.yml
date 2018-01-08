@@ -40,6 +40,11 @@ plugins:
   - jekyll-feed
   - jekyll-paginate
 
+leancloud:
+  enable: true
+  app_id: BMEWsx6OrbUkA6O8LgzRpku3-gzGzoHsz
+  app_key: tlnYLUW3zJAkJpm6PaHTFtmN
+
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.

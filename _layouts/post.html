@@ -7,6 +7,14 @@ layout: default
     {% if page.date %}
       <time datetime="{{ page.date }}">{{ page.date | date: "%Y-%m-%d" }}</time>
     {% endif %}
+
+    {% if site.leancloud.enable %}
+        <span id="{{ page.url }}" class="leancloud_visitors" data-flag-title="{{ page.title }}">
+         <span class="post-meta-divider">|</span>
+         <span class="post-meta-item-text"> Hits:  </span>
+         <span class="leancloud-visitors-count"></span>
+        </span>
+    {% endif %}
   </div>
 
   <h1 class="post-title">{{ page.title }}</h1>
@@ -26,6 +34,8 @@ layout: default
 
   <a href="#" class="top">Top</a>
 </div>
+
+{% include leancloud-analytics.html %}
 
 <script>
 var idcomments_acct = '49dd8552fc5287c363bf4f130c247a35';
