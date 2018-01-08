@@ -41,7 +41,7 @@ plugins:
   - jekyll-paginate
 
 leancloud:
-  enable: true
+  enable: false
   app_id: BMEWsx6OrbUkA6O8LgzRpku3-gzGzoHsz
   app_key: tlnYLUW3zJAkJpm6PaHTFtmN
 
