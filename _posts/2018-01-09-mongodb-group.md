@@ -5,8 +5,8 @@ date:   2018-01-09
 categories: nosql
 ---
 
-插入测试数据：
-```shell_session
+### 插入测试数据
+```posershell
 $ mongod #启动MongoDB
 $ mongo #连接MongoDB
 
@@ -74,7 +74,7 @@ $ mongo #连接MongoDB
 ```
 
 测试数据插入完毕，看起来像是下面这样：
-```shell_session
+```shell
 > db.movies.find();
 { "_id" : ObjectId("5a543db21852eaeaf54508cd"), "id" : 1, "title" : "危情24小时" }
 { "_id" : ObjectId("5a543db51852eaeaf54508ce"), "id" : 2, "title" : "女大当嫁" }
@@ -94,7 +94,7 @@ $ mongo #连接MongoDB
 
 ### 使用group分组查询
 查询所有电影的总评分：
-```shell_session
+```shell
 db.runCommand(
    {
      group:
