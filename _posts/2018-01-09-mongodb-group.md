@@ -6,7 +6,7 @@ categories: nosql
 ---
 
 ### 插入测试数据
-```posershell
+```shell
 $ mongod #启动MongoDB
 $ mongo #连接MongoDB
 
