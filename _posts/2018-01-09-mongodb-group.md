@@ -7,14 +7,13 @@ categories: nosql
 
 插入测试数据：
 ```shell_session
-$ mongod
-$ mongo
+$ mongod #启动MongoDB
+$ mongo #连接MongoDB
 
 > m1={
 ... "id":1,
 ... "title":"危情24小时"
 ... };
-
 > m2={
 ... "id":2,
 ... "title":"女大当嫁"
@@ -29,21 +28,18 @@ $ mongo
 ... "rating":3,
 ... "ctime":new Date()
 ... }
-
 > r2={
 ... "uid":1,
 ... "mid":2,
 ... "rating":5,
 ... "ctime":new Date()
 ... }
-
 > r3={
 ... "uid":2,
 ... "mid":1,
 ... "rating":4,
 ... "ctime":new Date()
 ... }
-
 > r4={
 ... "uid":3,
 ... "mid":1,
@@ -61,13 +57,11 @@ $ mongo
 ... "sex":0,
 ... 'username':'pigfly',
 ... }
-
 > u2={
 ... "uid":2,
 ... "sex":1,
 ... 'username':'zch',
 ... }
-
 > u3={
 ... "uid":3,
 ... "sex":0,
@@ -98,6 +92,7 @@ $ mongo
 
 ```
 
+### 使用group分组查询
 查询所有电影的总评分：
 ```shell_session
 db.runCommand(
@@ -112,8 +107,10 @@ db.runCommand(
        }
    }
 )
+```
 
-//返回
+返回：
+```json
 {
         "retval" : [
                 {
