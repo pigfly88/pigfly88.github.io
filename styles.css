@@ -416,10 +416,6 @@ pre code {
 }
 
 .post img {
-	margin: 0 auto 0.5rem
-}
-
-.post img {
 	color: #aaa;
 	display: block;
 	font-family: "Helvetica Neue","Segoe UI",Helvetica,Arial,sans-serif;
