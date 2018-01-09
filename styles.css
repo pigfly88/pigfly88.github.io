@@ -63,21 +63,21 @@ a {
 
 blockquote {
 	border-left: 0.25rem solid #e5e5e5;
-	color: #979797;
 	margin: .8rem 0;
 	padding: .5rem 1rem
+	background: #f8f8f2;
 }
 
 blockquote p:last-child {
 	margin-bottom: 0
 }
-
+/*
 @media (min-width: 600px) {
 	blockquote {
 		padding: 0 5rem 0 1.25rem
 	}
 }
-
+*/
 img {
 	display: block;
 	margin: 0 0 1rem;

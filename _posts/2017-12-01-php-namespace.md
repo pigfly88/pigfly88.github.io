@@ -15,6 +15,7 @@ title:  "PHP namespace"
 - 解决命名冲突
 - 重命名
 ### 举个栗子
+
 ```php
 namespace my; //定义命名空间
 
@@ -39,10 +40,9 @@ var_dump($a->query());
 $b = preg_replace_callback();
 var_dump($b);
 var_dump(PHP_SAPI);
-```
-可以看到妥妥地返回了1,2,3：
-```php
-int(1) int(2) int(3)
+
+//可以看到妥妥地返回了1,2,3：
+//int(1) int(2) int(3)
 ```
 
 那么问题来了，现在我要用php的mysqli怎么办？最前面加上\就好了：
@@ -51,14 +51,13 @@ $a = new \mysqli;
 ```
 我们在项目中遇到最多的情况是有两个同名的类库或方法而造成的冲突。假设有A,B两个第三方类库，它们都有Cache类，我要同时使用到他们两个：
 
-├─application
-│ ├─A
-│ │ ├─Cache.php
-│ ├─B
-│ │ ├─Cache.php
-│ ├─test.php
+- A
+-- Cache.php
+- B
+-- Cache.php
+- test.php
 
-A/Cache.php:
+A/Cache.php
 ```php
 namespace A;
 class Cache{
@@ -68,9 +67,8 @@ class Cache{
 }
 ```
 
+B/Cache.php
 ```php
-B/Cache.php:
-
 namespace B;
 class Cache{
     function set(){
@@ -79,7 +77,7 @@ class Cache{
 }
 ```
 
-test.php:
+test.php
 ```php
 require 'A/Cache.php';
 require 'B/Cache.php';
@@ -89,11 +87,10 @@ var_dump($cache->set());
 
 $cache = new B\Cache();
 var_dump($cache->set());
+
+// 输出：string(2) "ok" string(7) "success"
 ```
-返回：
-```php
-string(2) "ok" string(7) "success"
-```
+
 可以看到只要他两的命名空间不同，那么就可以正确调用到
 
 ### namespace和__NAMESPACE__
