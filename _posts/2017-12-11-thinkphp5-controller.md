@@ -158,4 +158,5 @@ $_SERVER['PATH_INFO']获得模块/控制器/操作，通过反射实例化控制
 不支持单模块和多模块并存，配置文件需要指定是否多模块，我觉得可以做成共存，这样很容易实现控制器的复用，比如：
 - Application/controller/Index.php
 - Application/a/controller/Index.php
+
 当url为：/a/index/index，优先执行a模块Application/a/controller/Index的index方法，如果a模块不存在这个方法，调用外围的Application/controller/Index下的index方法
