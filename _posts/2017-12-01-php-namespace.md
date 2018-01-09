@@ -52,9 +52,9 @@ $a = new \mysqli;
 我们在项目中遇到最多的情况是有两个同名的类库或方法而造成的冲突。假设有A,B两个第三方类库，它们都有Cache类，我要同时使用到他们两个：
 
 - A
--- Cache.php
+    - Cache.php
 - B
--- Cache.php
+    - Cache.php
 - test.php
 
 A/Cache.php
