@@ -1,7 +1,6 @@
 ---
 layout: post
 title:  MongoDB分组查询
-date:   2018-01-09
 categories: nosql
 ---
 
