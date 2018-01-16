@@ -1,16 +1,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% if page.keywords != "" %}<meta name="keywords" content="page.keywords" />{% endif %}
+  {% if page.keywords != "" %}<meta name="keywords" content="{{ page.keywords }}" />{% endif %}
   <title>
-    {% if page.title == "Home" %}
-      首页
+    {% if page.title != "" %}
+      {{ page.title }}
     {% else %}
-      {% if page.title != "" %}
-        {{ page.title }}
-      {% else %}
-        {{ page.category }}
-      {% endif %}
+      {{ page.category }}
     {% endif %}
     &middot; {{ site.title }}
   </title>
