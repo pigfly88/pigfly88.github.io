@@ -1,7 +1,8 @@
 ---
 layout: post
 category: "php"
-title:  "PHP namespace"
+title:  "PHP命名空间"
+keywords: "PHP命名空间,PHP namespace"
 ---
 
 ### 介绍

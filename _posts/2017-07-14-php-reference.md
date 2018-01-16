@@ -1,7 +1,8 @@
 ---
 layout: post
 category: "php"
-title:  "PHP reference"
+title:  "PHP引用"
+keywords: "PHP引用,PHP reference"
 ---
 
 ### 引用的含义
