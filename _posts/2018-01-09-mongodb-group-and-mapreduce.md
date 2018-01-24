@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  MongoDB分组查询
+title:  MongoDB分组查询和MapReduce
 categories: nosql
 ---
 
@@ -91,8 +91,10 @@ $ mongo #连接MongoDB
 
 ```
 
+## 查询所有电影的总评分
+
 ### 使用group分组查询
-查询所有电影的总评分：
+
 ```shell
 db.runCommand(
    {
@@ -126,3 +128,22 @@ db.runCommand(
         "ok" : 1
 }
 ```
+
+### 使用MapReduce查询
+
+```shell
+> var map = function(){
+... emit(this.mid, this.rating);
+... };
+> var reduce = function(mid, ratings){
+... return Array.sum(ratings);
+... };
+> db.ratings.mapReduce(map, reduce, {out:'res'});
+> db.res.find();
+{ "_id" : 1, "value" : 8 }
+{ "_id" : 2, "value" : 5 }
+```
+
+MapReduce的过程
+
+![mapreduce](/images/map-reduce.bakedsvg.svg)
