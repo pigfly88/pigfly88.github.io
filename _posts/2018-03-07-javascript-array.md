@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  javascript数组
+title:  JavaScript数组
 categories: javascript
 ---
 
