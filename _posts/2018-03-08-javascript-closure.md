@@ -84,7 +84,7 @@ function init(){
 - **JavaScript语言特性需要（setTimeout、setInterval...）**
 - **事件绑定需要（onclick...）**
 
-当然还有一个原因需要它，那就是*OO*，把上面发送验证码的代码改造一下变成面向对象风格
+当然还有一个原因需要它，那就是**OO**，把上面发送验证码的代码改造一下变成面向对象风格
 ```javascript
 var c = new CountDown(document.getElementById('getCode'), 5);
 c.run();
