@@ -13,16 +13,16 @@ categories: javascript
 ```javascript
 var global_var = 1; //全局
 if(false){
-	var false_var = 2; //还是全局
+    var false_var = 2; //还是全局
 }
 
 if(true){
-	var true_var = 3; //还是全局
+    var true_var = 3; //还是全局
 }
 
 function test(){
-	var local_var = 4; //局部
-	return local_var+global_var;
+    var local_var = 4; //局部
+    return local_var+global_var;
 }
 
 console.log(false_var, true_var); //undefined 1
@@ -35,8 +35,8 @@ console.log(local_var); //local_var is not defined
 需要注意的是，在函数内声明变量一定要使用var，否则是声明了一个全局变量
 ```javascript
 function test(){
-	a = 1;
-	return a;
+    a = 1;
+    return a;
 }
 test(); //1
 console.log(a); //1
@@ -50,12 +50,12 @@ console.log(a); //1
 ```javascript
 var x=1;
 function outer() {
-	var y = 2;
-	function inner() {
-		var z = 3;
-		alert(x+y+z);
-	}
-	inner();
+    var y = 2;
+    function inner() {
+        var z = 3;
+        alert(x+y+z);
+    }
+    inner();
 }
 outer();
 ```

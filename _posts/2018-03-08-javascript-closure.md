@@ -29,7 +29,8 @@ function b() {
 b(); //1
 ```
 
-综上所述，闭包就是函数a和变量x，也就是书上说的：函数以及它所连接的周围作用域中的变量即为闭包
+综上所述，闭包就是函数a和变量x，也就是书上说的：
+> 函数以及它所连接的周围作用域中的变量即为闭包
 
 ### 为什么要用闭包
 
@@ -80,10 +81,10 @@ function init(){
 可以看到在onclick函数里面是可以正常操作time_wait和time_left变量的，细心的朋友可能已经发现这里出现两个闭包了，一个是onclick，还有一个是setInterval定时函数。
 
 所以回过头来看问题，为什么要用闭包？
-- JavaScript语言特性需要（setTimeout、setInterval...）
-- 事件绑定需要（onclick...）
+- **JavaScript语言特性需要（setTimeout、setInterval...）**
+- **事件绑定需要（onclick...）**
 
-当然还有一个原因需要它，那就是OO，把上面发送验证码的代码改造一下变成面向对象风格
+当然还有一个原因需要它，那就是*OO*，把上面发送验证码的代码改造一下变成面向对象风格
 ```javascript
 var c = new CountDown(document.getElementById('getCode'), 5);
 c.run();
