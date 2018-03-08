@@ -1,16 +1,16 @@
 ---
 layout: post
-title:  JavaScript作用域
+title:  JavaScript闭包
 categories: javascript
 ---
 
 ### 什么是闭包
-闭包就是一个函数a在另一个函数b里面，这个函数a就是闭包
+一个函数a定义在另一个函数b里面，这个函数a就是闭包
 
 ```javascript
 function b() {
 	...
-	function a() { //closure
+	function a() { //闭包
 		...
 	}
 	...
@@ -33,13 +33,11 @@ b(); //1
 
 ### 为什么要用闭包
 
-我们其实经常用到闭包，可能自己都不知道
-
-比如下面这个例子，一个初始化函数里面包含一个按钮点击事件
+我们其实经常用到闭包，可能自己都不知道，比如下面这个例子，一个初始化函数里面包含一个按钮点击事件：
 ```javascript
 function init(){
 	...
-	document.getElementById('btn').onclick = function(){ //这就是闭包
+	document.getElementById('btn').onclick = function(){ //闭包
 		...
 	};
 }
@@ -59,11 +57,11 @@ init();
 function init(){
 	var time_wait = 60; //等待时间
 	var time_left = time_wait; //剩余等待时间
-	document.getElementById('getCode').onclick = function(){
+	document.getElementById('getCode').onclick = function(){ //闭包
 		var btn = this;
 		btn.disabled = true;
 		btn.innerHTML=time_left--;
-		var count = setInterval(function(){
+		var count = setInterval(function(){ //闭包
 			if(time_left<1){
 				btn.disabled = false;
 				btn.innerHTML="获取验证码";
