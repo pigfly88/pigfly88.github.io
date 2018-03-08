@@ -17,7 +17,7 @@ function b() {
 }
 ```
 
-同时，函数a能够操作函数b的变量，这个就是闭包的特性
+同时，函数a能够直接操作函数b的变量，这个就是闭包的特性
 ```javascript
 function b() {
 	var x = 1;
