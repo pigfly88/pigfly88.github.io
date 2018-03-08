@@ -9,22 +9,22 @@ categories: javascript
 
 ```javascript
 function b() {
-	...
-	function a() { //闭包
-		...
-	}
-	...
+    ...
+    function a() { //闭包
+        ...
+    }
+    ...
 }
 ```
 
 同时，函数a能够直接操作函数b的变量，这个就是闭包的特性
 ```javascript
 function b() {
-	var x = 1;
-	function a() {
-		alert(x);
-	}
-	a();
+    var x = 1;
+    function a() {
+        alert(x);
+    }
+    a();
 }
 b(); //1
 ```
@@ -36,10 +36,10 @@ b(); //1
 我们其实经常用到闭包，可能自己都不知道，比如下面这个例子，一个初始化函数里面包含一个按钮点击事件：
 ```javascript
 function init(){
-	...
-	document.getElementById('btn').onclick = function(){ //闭包
-		...
-	};
+    ...
+    document.getElementById('btn').onclick = function(){ //闭包
+        ...
+    };
 }
 ```
 
@@ -55,23 +55,23 @@ function init(){
 init();
 
 function init(){
-	var time_wait = 60; //等待时间
-	var time_left = time_wait; //剩余等待时间
-	document.getElementById('getCode').onclick = function(){ //闭包
-		var btn = this;
-		btn.disabled = true;
-		btn.innerHTML=time_left--;
-		var count = setInterval(function(){ //闭包
-			if(time_left<1){
-				btn.disabled = false;
-				btn.innerHTML="获取验证码";
-				time_left = time_wait;
-				clearInterval(count);
-			}else{
-				btn.innerHTML=time_left--;
-			}
-		},1000);
-	};
+    var time_wait = 60; //等待时间
+    var time_left = time_wait; //剩余等待时间
+    document.getElementById('getCode').onclick = function(){ //闭包
+        var btn = this;
+        btn.disabled = true;
+        btn.innerHTML=time_left--;
+        var count = setInterval(function(){ //闭包
+            if(time_left<1){
+                btn.disabled = false;
+                btn.innerHTML="获取验证码";
+                time_left = time_wait;
+                clearInterval(count);
+            }else{
+                btn.innerHTML=time_left--;
+            }
+        },1000);
+    };
 }
 </script>
 </body>
@@ -89,30 +89,30 @@ var c = new CountDown(document.getElementById('getCode'), 5);
 c.run();
 
 function CountDown(btn, time_wait) {
-	var time_left = time_wait; //剩余等待时间
-	
-	//private
-	function resetBtn(){
-		btn.disabled = false;
-		btn.innerHTML="获取验证码";
-	}
-	
-	//public
-	this.run = function(){
-		btn.onclick = function(){
-			btn.innerHTML=time_left--;
-			btn.disabled = true;
-			var count = setInterval(function(){
-				
-				if(time_left<1){
-					resetBtn();
-					time_left = time_wait;
-					clearInterval(count);
-				}else{
-					btn.innerHTML=time_left--;
-				}
-			},1000);
-		};
-	};
+    var time_left = time_wait; //剩余等待时间
+    
+    //private
+    function resetBtn(){
+        btn.disabled = false;
+        btn.innerHTML="获取验证码";
+    }
+    
+    //public
+    this.run = function(){
+        btn.onclick = function(){
+            btn.innerHTML=time_left--;
+            btn.disabled = true;
+            var count = setInterval(function(){
+                
+                if(time_left<1){
+                    resetBtn();
+                    time_left = time_wait;
+                    clearInterval(count);
+                }else{
+                    btn.innerHTML=time_left--;
+                }
+            },1000);
+        };
+    };
 }
 ```
