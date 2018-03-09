@@ -220,8 +220,7 @@ User.prototype.getName = function() {
 ```
 
 
-> ### 参考资料
-> 
+### 参考资料
 > 1.   [阮一峰>学习Javascript闭包](http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html)
 > 2.   [MDN>Web技术文档>JavaScript>闭包](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures)
 > 3.   [JavaScript Closures Demystified](https://www.sitepoint.com/javascript-closures-demystified/)
