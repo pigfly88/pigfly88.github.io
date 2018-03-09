@@ -29,8 +29,25 @@ function b() {
 b(); //1
 ```
 
+再来看个更有意思的例子：
+```javascript
+function b() {
+    var x = 1;
+    function a() {
+        alert(x++);
+    }
+    return a;
+}
+var func = b();
+func(); //1
+func(); //2
+func(); //3
+```
+函数b这次不直接执行a，而是返回了a，所以func是函数a实例的引用，而func()竟然能神奇地记住x，这得益于JavaScript的闭包机制。
+
 综上所述，闭包就是函数a和变量x，也就是书上说的：
 > 函数以及它所连接的周围作用域中的变量即为闭包
+> 闭包：使得函数可以维持其创建时所在的作用域。如果一个函数离开了它被创建时的作用域，它还是会与这个作用域以及其外部的作用域的变量相关联。
 
 ### 为什么要用闭包
 
@@ -120,7 +137,7 @@ function CountDown(btn, time_wait) {
 
 ### 什么时候不要用闭包
 滥用闭包可能会导致脚本执行缓慢并消耗不必要的内存
-1. 循环
+1.**循环**
 
 ```javascript
 <!DOCTYPE html>
@@ -177,4 +194,4 @@ window.addEventListener("load", function() {
 });
 ```
 
-2. 构造器
+2.**构造器**
