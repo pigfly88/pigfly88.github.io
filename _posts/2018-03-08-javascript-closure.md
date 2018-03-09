@@ -117,3 +117,64 @@ function CountDown(btn, time_wait) {
     };
 }
 ```
+
+### 什么时候不要用闭包
+滥用闭包可能会导致脚本执行缓慢并消耗不必要的内存
+1. 循环
+
+```javascript
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head></head>
+<body>
+    <input type="button" id="btn1" value="1" />
+    <input type="button" id="btn2" value="2" />
+    <input type="button" id="btn3" value="3" />
+
+    <script>
+    window.addEventListener("load", function() {
+        for (var i = 1; i < 4; i++) {
+            var btn = document.getElementById("btn" + i);
+
+            btn.addEventListener("click", function() {
+                alert(i);
+            });
+        }
+    });
+    </script>
+</body>
+</html>
+```
+无论你点击哪个按钮，都会弹出4，因为click函数是个闭包，页面加载后循环开始执行，当你点击按钮的时候，循环已经执行完了，此时i值为4，而闭包记得它周围的变量，所以弹出的都是4。
+要解决这个问题，可以把打印的代码提炼到另一个函数里面，这样就会产生一个新的作用域：
+```javascript
+function show(i){
+    return function(){
+        alert(i);
+    }
+}
+
+window.addEventListener("load", function() {
+    for (var i = 1; i < 4; i++) {
+        var btn = document.getElementById("btn" + i);
+
+        btn.addEventListener("click", show(i));
+    }
+});
+```
+或者用立即执行函数表达式：
+```javascript
+window.addEventListener("load", function() {
+    for (var i = 1; i < 4; i++) {
+        var btn = document.getElementById("btn" + i);
+
+        btn.addEventListener("click", function(i) {
+            return function(){
+                alert(i);
+            }
+        }(i));
+    }
+});
+```
+
+2. 构造器
