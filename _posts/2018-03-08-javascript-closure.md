@@ -226,3 +226,4 @@ User.prototype.getName = function() {
 > 3.   [JavaScript Closures Demystified](https://www.sitepoint.com/javascript-closures-demystified/)
 > 4.   JavaScript for PHP Developers
 > 5.   深入理解JavaScript
+> 6.   [secrets of javascript closures](https://kryogenix.org/code/browser/secrets-of-javascript-closures/secrets_of_javascript_closures.pdf)
