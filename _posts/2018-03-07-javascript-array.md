@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  JavaScript数组
+title:  JavaScript一看就懂(3)数组
 categories: javascript
 ---
 

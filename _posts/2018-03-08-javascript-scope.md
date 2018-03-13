@@ -1,64 +1,143 @@
 ---
 layout: post
-title:  JavaScript作用域
+title:  JavaScript一看就懂(1)作用域
 categories: javascript
 ---
 
-### 全局or局部
+### 函数级作用域
 
-- 函数外声明的变量为全局变量，函数内声明的变量为局部变量
-- 函数内可以直接使用全局变量
-- 块语句（如：if、for、while）里面声明的变量并非局部变量
+**1.函数外声明的变量为全局变量，函数内可以直接访问全局变量：**
 
 ```javascript
-var global_var = 1; //全局
-if(false){
-    var false_var = 2; //还是全局
+var global_var = 10; //全局变量
+function a(){
+    alert(global_var); //全局变量在函数内可访问
 }
-
-if(true){
-    var true_var = 3; //还是全局
-}
-
-function test(){
-    var local_var = 4; //局部
-    return local_var+global_var;
-}
-
-console.log(false_var, true_var); //undefined 1
-test(); //5
-console.log(local_var); //local_var is not defined
+a(); //10
 ```
 
-我们可以看到false_var是undefined，代表它已经声明，不过因为条件是false，没有执行赋值
+**2.JavaScript变量的作用域是函数级的，只有函数可以产生新的作用域，而非块级：**
 
-需要注意的是，在函数内声明变量一定要使用var，否则是声明了一个全局变量
+```javascript
+function a(){ //函数
+    if(true){ //块
+        var x = 1;
+    }
+    if(false){
+        var y = 2;
+    }
+    alert(x); //1
+    alert(y); //undefined
+}
+a();
+```
+变量x虽然在块语句(if)中声明并赋值，但它的作用域是函数a，所以在函数a的任何位置它都可访问。
+有意思的是y变量的声明和赋值虽然在false块语句里，但仍然打印出undefined而不是报错，因为JavaScript会把所有变量声明提前到函数开头，称为**变量提升**：
+
+```javascript
+function a(){
+    alert(x);
+    var x = 1;
+    alert(x);
+}
+a(); //undefined 1
+
+//以上代码经过JavaScript变量提升后实际上是这个样子的：
+function a(){
+    var x;
+    alert(x);
+    x = 1;
+    alert(x);
+}
+```
+
+需要注意的是，在函数内声明变量一定要使用var，否则是声明了一个全局变量：
+
 ```javascript
 function test(){
     a = 1;
-    return a;
 }
-test(); //1
-console.log(a); //1
+test();
+alert(a); //1
 ```
+
+**3.嵌套函数可以访问外围函数的变量**
+
+```javascript
+function a(){
+    var x = 1;
+    
+    function b(){
+        alert(x);
+        var y = 2;
+        
+        function c(){
+            alert(x);
+            alert(y);
+        }
+        c();
+    }
+    b();
+}
+a(); // 1 1 2
+```
+
+需要注意的是，嵌套函数里如果有同名变量，那么访问到的是嵌套函数里的变量
+```javascript
+function a(){
+    var x = 1;
+    
+    function b(){
+        var x = 2;
+        alert(x);
+    }
+    b();
+    alert(x);
+}
+a(); //2 1
+```
+
+**4.如何做到块级作用域**
+通过上面的例子我们了解了JavaScript的变量作用域是函数级的，但有时候我们想用临时变量怎么办呢？
+通过IIFE(立即执行函数表达式)：
+
+```javascript
+function a(){
+    if(true){
+        (function(){ //IIFE开始
+            var x = 1;
+            alert(x); //1
+        }()); //IIFE结束
+        //alert(x); //这儿访问不到
+    }
+    //alert(x); //这儿访问不到
+}
+a();
+```
+这样做的好处是不会造成变量污染，用完就没了，大家商量好，过了今晚就不再联系。
 
 ### 作用域链
 
-变量是以函数为作用域，只有函数可以产生新的作用域。
-
-当一个函数里面还有另外一个函数的时候，就涉及到查找变量的问题
 ```javascript
-var x=1;
-function outer() {
-    var y = 2;
-    function inner() {
-        var z = 3;
-        alert(x+y+z);
-    }
-    inner();
-}
-outer();
+1. var x=1;
+2. function a() {
+3.    var y = 2;
+4.    function b() {
+5.        var z = 3;
+6.        alert(x+y+z);
+7.    }
+8.    b();
+9. }
+10.a();
 ```
+首先，JavaScript把所有全局对象放到global variables对象中：
+[global variables]: x, a()
 
-inner函数出现了x、y两个变量，JavaScript由内而外进行搜索，首先看看inner函数里面有没有定义，没有则去查找outer函数，再没有找到就只能去最外层查找全局变量了。
+然后发现a是个函数，它需要一个socpe属性来指向它所在的作用域
+a.scope -> global variables
+[a() variables]: y=2, b()
+b.scope -> a() variables
+[b() variables]: z=3
+
+
 

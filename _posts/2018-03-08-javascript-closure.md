@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  JavaScript闭包
+title:  JavaScript一看就懂(2)闭包
 categories: javascript
 ---
 
