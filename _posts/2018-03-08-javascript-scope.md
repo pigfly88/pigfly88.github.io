@@ -16,7 +16,7 @@ function a(){
 a(); //10
 ```
 
-**2.JavaScript变量的作用域是函数级的，只有函数可以产生新的作用域，而非块级：**
+**2.JavaScript变量的作用域是*函数级*的，只有函数可以产生新的作用域，而非块级：**
 
 ```javascript
 function a(){ //函数
@@ -33,7 +33,7 @@ a();
 ```
 变量x虽然在块语句(if)中声明并赋值，但它的作用域是函数a，所以在函数a的任何位置它都可访问。
 
-有意思的是y变量的声明和赋值虽然在false块语句里，却仍然打印出undefined而不是报错，因为JavaScript会把所有变量声明提前到函数开头，称为**变量提升**：
+有意思的是y变量的声明和赋值虽然在false块语句里，却仍然打印出undefined而不是报错，因为JavaScript会把所有变量声明提前到函数开头，称为*变量提升*：
 
 ```javascript
 function a(){
@@ -139,12 +139,15 @@ a();
 ![js-scope](/images/js-scope.png)
 
 1.从第1行开始，JavaScript把所有全局对象(变量x和函数a)放到global variables对象中
+
 global variables: x, a()
 
 2.来到第10行，进入a函数，在第2行找到自己，发现a是个函数，它需要一个scope属性来指向它所在的作用域(全局)
+
 a.scope -> global variables
 
 3.发现b是个函数，它需要一个scope属性来指向它所在的作用域(a)
+
 b.scope -> a.variables
 
 
