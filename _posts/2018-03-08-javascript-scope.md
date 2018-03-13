@@ -32,7 +32,8 @@ function a(){ //函数
 a();
 ```
 变量x虽然在块语句(if)中声明并赋值，但它的作用域是函数a，所以在函数a的任何位置它都可访问。
-有意思的是y变量的声明和赋值虽然在false块语句里，但仍然打印出undefined而不是报错，因为JavaScript会把所有变量声明提前到函数开头，称为**变量提升**：
+
+有意思的是y变量的声明和赋值虽然在false块语句里，却仍然打印出undefined而不是报错，因为JavaScript会把所有变量声明提前到函数开头，称为**变量提升**：
 
 ```javascript
 function a(){
@@ -98,8 +99,10 @@ a(); //2 1
 ```
 
 **4.如何做到块级作用域**
+
 通过上面的例子我们了解了JavaScript的变量作用域是函数级的，但有时候我们想用临时变量怎么办呢？
-通过IIFE(立即执行函数表达式)：
+
+那就是通过*IIFE(立即执行函数表达式)*来实现：
 
 ```javascript
 function a(){
@@ -130,14 +133,22 @@ a();
 9. }
 10.a();
 ```
-首先，JavaScript把所有全局对象放到global variables对象中：
-[global variables]: x, a()
 
-然后发现a是个函数，它需要一个socpe属性来指向它所在的作用域
+**1.词法作用域链**
+
+![js-scope](/images/js-scope.png)
+
+1.从第1行开始，JavaScript把所有全局对象(变量x和函数a)放到global variables对象中
+global variables: x, a()
+
+2.来到第10行，进入a函数，在第2行找到自己，发现a是个函数，它需要一个scope属性来指向它所在的作用域(全局)
 a.scope -> global variables
-[a() variables]: y=2, b()
-b.scope -> a() variables
-[b() variables]: z=3
+
+3.发现b是个函数，它需要一个scope属性来指向它所在的作用域(a)
+b.scope -> a.variables
+
+
+
 
 
 
