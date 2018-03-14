@@ -50,11 +50,11 @@ b()这次没有直接调用a()，而是返回了函数a给变量func，而func()
 
 所以什么是闭包？结合上面的代码来解释的话：
 
-*闭包就是无论函数a在哪里执行，它都能联系上变量x*
+> 闭包就是无论函数a在哪里执行，它都能联系上变量x
 
 纯字面上来理解的话：
 
-*一个函数没有在它定义时所在的作用域里执行，但它仍能访问那个作用域里的变量*
+> 一个函数没有在它定义时所在的作用域里执行，但它仍能访问那个作用域里的变量
 
 也就是书上说的：
 > 函数以及它所连接的周围作用域中的变量即为闭包
@@ -62,6 +62,8 @@ b()这次没有直接调用a()，而是返回了函数a给变量func，而func()
 > 闭包：使得函数可以维持其创建时所在的作用域。如果一个函数离开了它被创建时的作用域，它还是会与这个作用域以及其外部的作用域的变量相关联
 
 > 闭包就是函数能够记住并访问它的词法作用域，即使当这个函数在它的词法作用域之外执行时
+
+> 闭包就是当一个函数即使是在它的词法作用域之外被调用时，也可以记住并访问它的词法作用域
 
 ### 为什么要用闭包
 
@@ -87,10 +89,10 @@ function countDown(){
 <button type="button" id="getCode">获取验证码</button>
 
 <script>
-countDown();
+countDown(9);
 
-function countDown(){
-    var time_wait = 60; //等待时间
+function countDown(time_wait){
+    time_wait = time_wait || 60; //等待时间
     var time_left = time_wait; //剩余等待时间
     document.getElementById('getCode').onclick = function(){ //闭包
         var btn = this;
@@ -118,22 +120,21 @@ function countDown(){
 
 2.面向对象
 
-当然还有一个更重要的原因需要它，那就是**OO**，把上面发送验证码的代码改造一下变成面向对象风格
+当然还有一个更重要的原因需要它，那就是*OO*，把上面发送验证码的代码改造一下变成面向对象风格
 ```javascript
-var c = new CountDown(document.getElementById('getCode'), 5);
-c.run();
+var c1 = CountDown(document.getElementById('getCode'), 5);
+c1.run();
 
 function CountDown(btn, time_wait) {
+    time_wait = time_wait || 60;
     var time_left = time_wait; //剩余等待时间
     
-    //private
     function resetBtn(){
         btn.disabled = false;
         btn.innerHTML="获取验证码";
     }
-    
-    //public
-    this.run = function(){
+
+    function run(){
         btn.onclick = function(){
             btn.innerHTML=time_left--;
             btn.disabled = true;
@@ -148,16 +149,21 @@ function CountDown(btn, time_wait) {
                 }
             },1000);
         };
+    }
+    
+    //相当于公共方法
+    return {
+        run: run
     };
 }
 ```
+只有在return返回的对象里面的run方法才能对外服务，而resetBtn()相当于是私有方法
 
 所以回过头来看问题，为什么要用闭包？
 - **回调（setTimeout、setInterval、onclick...）**
 - **面向对象**
 
 ### 闭包会带来什么问题？
-滥用闭包可能会导致脚本执行缓慢并消耗不必要的内存
 
 **1.循环**
 
@@ -175,17 +181,18 @@ function CountDown(btn, time_wait) {
         for (var i = 1; i < 4; i++) {
             var btn = document.getElementById("btn" + i);
 
-            btn.addEventListener("click", function() {
+            btn.onclick = function() {
                 alert(i);
-            });
+            };
         }
     });
     </script>
 </body>
 </html>
 ```
-无论你点击哪个按钮，都会弹出4，因为click函数是个闭包，页面加载后循环开始执行，当你点击按钮的时候，循环已经执行完了，此时i值为4，而闭包记得它周围的变量，所以弹出的都是4。
-要解决这个问题，可以把打印的代码提炼到另一个函数里面，这样就会产生一个新的作用域：
+乍一看感觉就是对应地弹出1,2,3，但现实是无论你点击哪个按钮，都会弹出4，因为onclick绑定的函数是个闭包，页面加载后for循环开始执行，当你点击按钮的时候，for循环已经执行完了，此时i值为4，而闭包拿到的i值当前的i值，而不是循环中的i值，所以弹出的都是4。
+
+要解决这个问题，可以把打印的代码提炼到另一个函数里面，这样就会产生一个新的作用域，从而避开闭包带来的共享：
 ```javascript
 function show(i){
     return function(){
@@ -197,17 +204,18 @@ window.addEventListener("load", function() {
     for (var i = 1; i < 4; i++) {
         var btn = document.getElementById("btn" + i);
 
-        btn.addEventListener("click", show(i));
+        btn.onclick = show(i);
     }
 });
 ```
-或者用立即执行函数表达式：
+
+或者用立即执行函数表达式(IIFE)：
 ```javascript
 window.addEventListener("load", function() {
     for (var i = 1; i < 4; i++) {
         var btn = document.getElementById("btn" + i);
 
-        btn.addEventListener("click", function(i) {
+        btn.onclick = (function(i) {
             return function(){
                 alert(i);
             }
@@ -216,9 +224,23 @@ window.addEventListener("load", function() {
 });
 ```
 
-**2.构造器**
+当然还有一种更牛逼的方式：
+```javascript
+window.addEventListener("load", function() {
+    for (let i = 1; i < 4; i++) {
+        var btn = document.getElementById("btn" + i);
 
-方法应该关联于对象的原型，而不要定义到对象的构造器中。原因是这将导致每次对象实例化时，方法都会被重新定义一次。
+        btn.onclick = function() {
+            alert(i);  
+        };
+    }
+});
+```
+
+**2.构造器**
+滥用闭包可能会导致脚本执行缓慢并消耗不必要的内存。
+
+方法应该定义到对象的原型，而不要定义到对象的构造器中。原因是这将导致每次对象实例化时，方法都会被重新定义一次。
 ```javascript
 function User(name) {
     this.name = name;
