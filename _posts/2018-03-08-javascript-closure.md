@@ -5,7 +5,7 @@ categories: javascript
 ---
 
 ### 什么是闭包
-**一个函数a定义在另一个函数b里面，这个函数a就是闭包**
+**我们可以先简单认为：一个函数a定义在另一个函数b里面，这个函数a就是闭包（实际上它只是闭包的一部分）：**
 
 ```javascript
 function b() {
@@ -17,7 +17,7 @@ function b() {
 }
 ```
 
-**同时，函数a能够直接读取函数b的变量，这个就是闭包的特性**
+**另外，函数a能够直接读取函数b的变量x（闭包的另一部分）：**
 ```javascript
 function b() {
     var x = 1;
@@ -28,8 +28,9 @@ function b() {
 }
 b(); //1
 ```
+这其实不是什么新鲜事，这是由作用域决定的，可以参考[作用域](https://pigfly88.github.io/javascript/2018/03/08/javascript-scope.html)这一篇文章
 
-再来看个更有意思的例子：
+**真正意义上的闭包：**
 ```javascript
 function b() {
     var x = 1;
@@ -43,12 +44,18 @@ func(); //1
 func(); //2
 func(); //3
 ```
-函数b这次不直接执行a，而是返回了a，所以func是函数a实例的引用，而func()竟然能神奇地记住x，这得益于JavaScript的闭包机制。
+函数b这次不直接调用函数a，而是返回了函数a给变量func，而func()才是真正调用函数a的地方，等于是跳出了原来的圈子在外围被调用了，而func()竟然能神奇地记住变量x，这得益于JavaScript的闭包机制。
 
-综上所述，结合以上代码来看，**闭包就是函数a和变量x**，也就是书上说的：
+为了把闭包说得简单明了，结合上面的代码来解释会好一点：
+
+*闭包就是无论函数a在哪里执行，它都能联系上变量x*
+
+也就是书上说的：
 > 函数以及它所连接的周围作用域中的变量即为闭包
 
-> 闭包：使得函数可以维持其创建时所在的作用域。如果一个函数离开了它被创建时的作用域，它还是会与这个作用域以及其外部的作用域的变量相关联。
+> 闭包：使得函数可以维持其创建时所在的作用域。如果一个函数离开了它被创建时的作用域，它还是会与这个作用域以及其外部的作用域的变量相关联
+
+> 闭包就是函数能够记住并访问它的词法作用域，即使当这个函数在它的词法作用域之外执行时
 
 ### 为什么要用闭包
 
@@ -227,3 +234,4 @@ User.prototype.getName = function() {
 > 4.   JavaScript for PHP Developers
 > 5.   深入理解JavaScript
 > 6.   [secrets of javascript closures](https://kryogenix.org/code/browser/secrets-of-javascript-closures/secrets_of_javascript_closures.pdf)
+> 7.   [You Don't Know JS](https://github.com/getify/You-Dont-Know-JS/tree/1ed-zh-CN/scope%20%26%20closures)
