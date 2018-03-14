@@ -4,9 +4,11 @@ title:  JavaScript一看就懂(2)闭包
 categories: javascript
 ---
 
-### 什么是闭包
-**我们可以先简单认为：一个函数a定义在另一个函数b里面，这个函数a就是闭包（实际上它只是闭包的一部分）：**
+认识闭包之前需要先了解作用域，如果你对作用域还没有足够了解，请移步[JavaScript一看就懂(1)作用域](https://pigfly88.github.io/javascript/2018/03/08/javascript-scope.html)
 
+### 什么是闭包
+
+我们可以先简单认为：**一个函数a定义在另一个函数b里面，这个函数a就是闭包**：
 ```javascript
 function b() {
     ...
@@ -17,7 +19,7 @@ function b() {
 }
 ```
 
-**另外，函数a能够直接读取函数b的变量x（闭包的另一部分）：**
+**另外，函数a能够直接读取函数b的变量x**：
 ```javascript
 function b() {
     var x = 1;
@@ -28,9 +30,9 @@ function b() {
 }
 b(); //1
 ```
-这其实不是什么新鲜事，这是由作用域决定的，可以参考[作用域](https://pigfly88.github.io/javascript/2018/03/08/javascript-scope.html)这一篇文章
+这其实不是什么新鲜事，这是由作用域决定的，可以参考[JavaScript一看就懂(1)作用域](https://pigfly88.github.io/javascript/2018/03/08/javascript-scope.html)
 
-**真正意义上的闭包：**
+上面的例子只是为了简单地认识闭包的组成部分，但却不是真正意义上的闭包，下面才是正宗长沙臭豆腐，哦不，**正宗闭包**：
 ```javascript
 function b() {
     var x = 1;
@@ -44,11 +46,15 @@ func(); //1
 func(); //2
 func(); //3
 ```
-函数b这次不直接调用函数a，而是返回了函数a给变量func，而func()才是真正调用函数a的地方，等于是跳出了原来的圈子在外围被调用了，而func()竟然能神奇地记住变量x，这得益于JavaScript的闭包机制。
+b()这次没有直接调用a()，而是返回了函数a给变量func，而func()才是真正调用a()的地方，等于是跳出了原来的圈子在外围被调用了，而函数a竟然能神奇地记住变量x，这就是闭包的魔力。
 
-为了把闭包说得简单明了，结合上面的代码来解释会好一点：
+所以什么是闭包？结合上面的代码来解释的话：
 
 *闭包就是无论函数a在哪里执行，它都能联系上变量x*
+
+纯字面上来理解的话：
+
+*一个函数没有在它定义时所在的作用域里执行，但它仍能访问那个作用域里的变量*
 
 也就是书上说的：
 > 函数以及它所连接的周围作用域中的变量即为闭包
@@ -59,17 +65,20 @@ func(); //3
 
 ### 为什么要用闭包
 
-我们其实经常用到闭包，可能自己都不知道，比如下面这个例子，一个初始化函数里面包含一个按钮点击事件：
+1.回调
+
+我们其实经常用到闭包，可能自己都不知道，比如下面这个点击按钮获取验证码的例子：
 ```javascript
-function init(){
+function countDown(){
     ...
-    document.getElementById('btn').onclick = function(){ //闭包
+    document.getElementById('getCode').onclick = function(){ //闭包
         ...
     };
 }
 ```
+页面加载完成时，获取验证码的按钮被绑定了一个点击回调事件（没有执行），当用户点击时，才真正被执行
 
-一个详细点的例子，比如发送验证码
+完整代码：
 ```html
 <!DOCTYPE html>
 <html lang="zh-cn">
@@ -78,9 +87,9 @@ function init(){
 <button type="button" id="getCode">获取验证码</button>
 
 <script>
-init();
+countDown();
 
-function init(){
+function countDown(){
     var time_wait = 60; //等待时间
     var time_left = time_wait; //剩余等待时间
     document.getElementById('getCode').onclick = function(){ //闭包
@@ -103,11 +112,11 @@ function init(){
 </body>
 </html>
 ```
-可以看到在onclick函数里面是可以正常操作time_wait和time_left变量的，细心的朋友可能已经发现这里出现两个闭包了，一个是onclick，还有一个是setInterval定时函数。
+当用户点击按钮时，执行了这个回调函数并且它能够读取到外围的time_wait和time_left变量。
 
-所以回过头来看问题，为什么要用闭包？
-- **JavaScript语言特性需要（setTimeout、setInterval...）**
-- **事件绑定需要（onclick...）**
+细心的朋友可能已经发现这里出现两个闭包了，一个是onclick，还有一个是setInterval定时函数。
+
+2.面向对象
 
 当然还有一个更重要的原因需要它，那就是**OO**，把上面发送验证码的代码改造一下变成面向对象风格
 ```javascript
@@ -143,7 +152,11 @@ function CountDown(btn, time_wait) {
 }
 ```
 
-### 什么时候不要用闭包
+所以回过头来看问题，为什么要用闭包？
+- **回调（setTimeout、setInterval、onclick...）**
+- **面向对象**
+
+### 闭包会带来什么问题？
 滥用闭包可能会导致脚本执行缓慢并消耗不必要的内存
 
 **1.循环**
