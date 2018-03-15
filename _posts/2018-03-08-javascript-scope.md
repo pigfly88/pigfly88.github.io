@@ -135,21 +135,19 @@ a();
 10.a();
 ```
 
-1.JavaScript把所有全局对象(变量x和函数a)放到global variables对象中
+1.  JavaScript把所有全局对象(变量x和函数a)放到global variables对象中
 
-global variables: x, a()
+		global variables: x, a()
 
-2.发现a是个函数，它需要一个scope属性来指向外部的variables(全局)，同时把变量保存起来
+2.  发现a是个函数，它需要一个scope属性来指向外部的variables(全局)，同时把变量保存起来
 
-a.scope -> global variables
+		a.scope -> global variables
+		a.variables: y, b()
 
-a.variables: y, b()
+3.  来到第4行，发现b是个函数，它需要一个scope属性来指向它所在的作用域(a)
 
-3.来到第4行，发现b是个函数，它需要一个scope属性来指向它所在的作用域(a)
-
-b.scope -> a.variables
-
-b.variables: z
+		b.scope -> a.variables
+		b.variables: z
 
 ![js-scope](https://pigfly88.github.io/images/js-scope.png?v=2)
 
