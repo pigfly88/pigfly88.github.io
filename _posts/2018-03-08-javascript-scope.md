@@ -123,31 +123,35 @@ a();
 
 每当JavaScript解释器进入一个函数，它都会看一下附近有哪些局部变量，把它们保存到该函数的*variables*对象中，并创建一个*scope*属性来指向外部的variables对象
 ```javascript
-1. var x=1;
-2. function a() {
-3.    var y = 2;
-4.    function b() {
-5.        var z = 3;
-6.        alert(x+y+z);
-7.    }
-8.    b();
-9. }
-10.a();
+1.  var x=1;
+2.  function a() {
+3.     var y = 2;
+4.     function b() {
+5.         var z = 3;
+6.         alert(x+y+z);
+7.     }
+8.     b();
+9.  }
+10. a();
 ```
+
+结合上面的代码，看看JavaScript引擎是如何处理作用域的：
 
 1.  JavaScript把所有全局对象(变量x和函数a)放到global variables对象中
 
-		global variables: x, a()
+	global variables: x, a()
 
 2.  发现a是个函数，它需要一个scope属性来指向外部的variables(全局)，同时把变量保存起来
 
-		a.scope -> global variables
-		a.variables: y, b()
+	a.scope -> global variables
+	
+	a.variables: y, b()
 
 3.  来到第4行，发现b是个函数，它需要一个scope属性来指向它所在的作用域(a)
 
-		b.scope -> a.variables
-		b.variables: z
+	b.scope -> a.variables
+    
+	b.variables: z
 
 ![js-scope](https://pigfly88.github.io/images/js-scope.png?v=2)
 
