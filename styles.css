@@ -29,7 +29,7 @@ body {
 }
 
 h1,h2,h3,h4,h5,h6 {
-	color: #353535;
+	color: #000;
 	line-height: normal
 }
 
@@ -54,6 +54,7 @@ h3 {
     line-height: 40px;
     color: #355681;
     padding: 0px 0px 0px 0px;
+    border-bottom: 1px solid #94aed0;
 }
 
 a {

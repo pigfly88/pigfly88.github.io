@@ -4,9 +4,13 @@ title:  JavaScript一看就懂(1)作用域
 categories: javascript
 ---
 
+### 什么是作用域？
+
+作用域规定变量在什么地方可用。
+
 ### 函数级作用域
 
-**1.函数外声明的变量为全局变量，函数内可以直接访问全局变量**：
+#### 1.函数外声明的变量为全局变量，函数内可以直接访问全局变量：
 
 ```javascript
 var global_var = 10; //全局变量
@@ -16,7 +20,7 @@ function a(){
 a(); //10
 ```
 
-**2.JavaScript变量的作用域是*函数级*的，只有函数可以产生新的作用域，而非块级**：
+#### 2.JavaScript变量的作用域是*函数级*的，只有函数可以产生新的作用域，而非块级：
 
 ```javascript
 function a(){ //函数
@@ -62,7 +66,7 @@ test();
 alert(a); //1
 ```
 
-**3.嵌套函数可以访问外围函数的变量**
+#### 3.嵌套函数可以访问外围函数的变量
 
 ```javascript
 function a(){
@@ -102,7 +106,7 @@ a(); //2 1
 
 通过上面的例子我们了解到JavaScript变量作用域是函数级的，但有时候我们想用临时变量怎么办呢？
 
-通过*IIFE(立即执行函数表达式)*来实现：
+通过*IIFE*(立即执行函数表达式)来实现：
 
 ```javascript
 function a(){
@@ -153,6 +157,7 @@ a();
     
 	b.variables: z
 
+查找变量的时候，先看看variables对象有没有，没有就根据scope找上一级的variables，就这样一层一层往上找，直到找到为止。
 ![js-scope](https://pigfly88.github.io/images/js-scope.png?v=2)
 
 ### 参考资料
