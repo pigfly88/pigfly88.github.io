@@ -151,7 +151,7 @@ b.scope -> a.variables
 
 b.variables: z
 
-![js-scope](https://pigfly88.github.io/images/js-scope.png?v=1)
+![js-scope](https://pigfly88.github.io/images/js-scope.png?v=2)
 
 ### 参考资料
 > 1.   JavaScript for PHP Developers
