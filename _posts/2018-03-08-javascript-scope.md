@@ -6,7 +6,7 @@ categories: javascript
 
 ### 函数级作用域
 
-**1.函数外声明的变量为全局变量，函数内可以直接访问全局变量：**
+**1.函数外声明的变量为全局变量，函数内可以直接访问全局变量**：
 
 ```javascript
 var global_var = 10; //全局变量
@@ -16,7 +16,7 @@ function a(){
 a(); //10
 ```
 
-**2.JavaScript变量的作用域是*函数级*的，只有函数可以产生新的作用域，而非块级：**
+**2.JavaScript变量的作用域是*函数级*的，只有函数可以产生新的作用域，而非块级**：
 
 ```javascript
 function a(){ //函数
@@ -100,9 +100,9 @@ a(); //2 1
 
 **4.如何做到块级作用域**
 
-通过上面的例子我们了解了JavaScript的变量作用域是函数级的，但有时候我们想用临时变量怎么办呢？
+通过上面的例子我们了解到JavaScript变量作用域是函数级的，但有时候我们想用临时变量怎么办呢？
 
-那就是通过*IIFE(立即执行函数表达式)*来实现：
+通过*IIFE(立即执行函数表达式)*来实现：
 
 ```javascript
 function a(){
@@ -121,6 +121,7 @@ a();
 
 ### 作用域链
 
+每当JavaScript解释器进入一个函数，它都会看一下附近有哪些局部变量，把它们保存到该函数的variables对象中，并创建一个scope属性来指向外部的variables对象
 ```javascript
 1. var x=1;
 2. function a() {
@@ -134,22 +135,21 @@ a();
 10.a();
 ```
 
-**1.词法作用域链**
-
 ![js-scope](/images/js-scope.png)
 
-1.从第1行开始，JavaScript把所有全局对象(变量x和函数a)放到global variables对象中
+1.JavaScript把所有全局对象(变量x和函数a)放到global variables对象中
 
-global variables: x, a()
+*global variables: x, a()*
 
-2.来到第10行，进入a函数，在第2行找到自己，发现a是个函数，它需要一个scope属性来指向它所在的作用域(全局)
+2.发现a是个函数，它需要一个scope属性来指向外部的variables(全局)，同时把变量保存起来
 
-a.scope -> global variables
+*a.scope -> global variables*
+*a.variables: y, b()*
 
-3.发现b是个函数，它需要一个scope属性来指向它所在的作用域(a)
+3.来到第4行，发现b是个函数，它需要一个scope属性来指向它所在的作用域(a)
 
-b.scope -> a.variables
-
+*b.scope -> a.variables*
+*b.variables: z*
 
 
 

@@ -6,7 +6,7 @@ categories: javascript
 
 认识闭包之前需要先了解作用域，如果你对作用域还没有足够了解，请移步[JavaScript一看就懂(1)作用域](https://pigfly88.github.io/javascript/2018/03/08/javascript-scope.html)
 
-### 什么是闭包
+### 什么是闭包？
 
 我们可以先简单认为：**一个函数a定义在另一个函数b里面，这个函数a就是闭包**：
 ```javascript
@@ -30,9 +30,9 @@ function b() {
 }
 b(); //1
 ```
-这其实不是什么新鲜事，这是由作用域决定的，可以参考[JavaScript一看就懂(1)作用域](https://pigfly88.github.io/javascript/2018/03/08/javascript-scope.html)
+这其实不是什么新鲜事，这是由作用域决定的。
 
-上面的例子只是为了简单地认识闭包的组成部分，但却不是真正意义上的闭包，下面才是正宗长沙臭豆腐，哦不，**正宗闭包**：
+上面的代码只是为了简单地认识闭包的组成部分，但却不是真正意义上的闭包，下面才是正宗长沙臭豆腐，哦不，**正宗闭包**：
 ```javascript
 function b() {
     var x = 1;
@@ -56,6 +56,10 @@ b()这次没有直接调用a()，而是返回了函数a给变量func，而func()
 
 > 一个函数没有在它定义时所在的作用域里执行，但它仍能访问那个作用域里的变量
 
+说人话那就是：
+
+> 函数记得它周围发生了什么
+
 也就是书上说的：
 > 函数以及它所连接的周围作用域中的变量即为闭包
 
@@ -65,7 +69,9 @@ b()这次没有直接调用a()，而是返回了函数a给变量func，而func()
 
 > 闭包就是当一个函数即使是在它的词法作用域之外被调用时，也可以记住并访问它的词法作用域
 
-### 为什么要用闭包
+看看哪个说法好理解就拿来对着代码多揣摩几遍，不信你不懂
+
+### 闭包有什么用？
 
 **1.回调**
 
@@ -165,7 +171,7 @@ function CountDown(btn, time_wait) {
 
 ### 闭包会带来什么问题？
 
-**1.循环**
+**1.循环里的闭包**
 
 ```javascript
 <!DOCTYPE html>
@@ -238,7 +244,6 @@ window.addEventListener("load", function() {
 ```
 
 **2.构造器**
-滥用闭包可能会导致脚本执行缓慢并消耗不必要的内存。
 
 方法应该定义到对象的原型，而不要定义到对象的构造器中。原因是这将导致每次对象实例化时，方法都会被重新定义一次。
 ```javascript
@@ -260,7 +265,6 @@ User.prototype.getName = function() {
     return this.name;
 };
 ```
-
 
 ### 参考资料
 > 1.   [阮一峰>学习Javascript闭包](http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html)
