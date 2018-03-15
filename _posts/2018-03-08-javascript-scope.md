@@ -98,7 +98,7 @@ function a(){
 a(); //2 1
 ```
 
-**4.如何做到块级作用域**
+### 如何做到块级作用域
 
 通过上面的例子我们了解到JavaScript变量作用域是函数级的，但有时候我们想用临时变量怎么办呢？
 
@@ -121,7 +121,7 @@ a();
 
 ### 作用域链
 
-每当JavaScript解释器进入一个函数，它都会看一下附近有哪些局部变量，把它们保存到该函数的variables对象中，并创建一个scope属性来指向外部的variables对象
+每当JavaScript解释器进入一个函数，它都会看一下附近有哪些局部变量，把它们保存到该函数的*variables*对象中，并创建一个*scope*属性来指向外部的variables对象
 ```javascript
 1. var x=1;
 2. function a() {
@@ -151,8 +151,11 @@ b.scope -> a.variables
 
 b.variables: z
 
-![js-scope](/images/js-scope.png?v=1)
+![js-scope](https://pigfly88.github.io/images/js-scope.png?v=1)
 
-
+### 参考资料
+> 1.   JavaScript for PHP Developers
+> 2.   深入理解JavaScript
+> 3.   [You Don't Know JS](https://github.com/getify/You-Dont-Know-JS/tree/1ed-zh-CN/scope%20%26%20closures)
 
 
