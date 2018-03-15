@@ -37,24 +37,22 @@ h2 {
     font-weight: bold;
     font-family: Monaco,Consolas,"Helvetica Neue", Helvetica, Arial, sans-serif;
 	text-shadow: 0 -1px 1px rgba(0,0,0,0.2);
-    color: #3194d0;
+    color: #355681;
     letter-spacing: 1.4px;
-    margin-top: 20px;
-    padding: 2px 2px 5px 2px;
-    border-bottom: solid 1px #355681;
-    text-align: left;
-    text-indent: 0px;
+    margin: 1em 0 0.5em 0;
+    padding: 0px 0px 0px 0px;
+    border-bottom: 1px solid #a7d0ab;
 }
 
 h3 {
     margin: 1em 0 0.5em 0;
-    font-weight: blod;
+    font-weight: bold;
     font-family: Monaco,Consolas,"Helvetica Neue", Helvetica, Arial, sans-serif;
     text-shadow: 0 -1px 1px rgba(0,0,0,0.2);
-    line-height: 40px;
+    line-height: 25px;
     color: #355681;
     padding: 0px 0px 0px 0px;
-    border-bottom: 1px solid #94aed0;
+    border-bottom: 1px solid #a7d0ab;
 }
 
 a {

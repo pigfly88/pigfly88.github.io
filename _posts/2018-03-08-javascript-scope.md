@@ -158,6 +158,7 @@ a();
 	b.variables: z
 
 查找变量的时候，先看看variables对象有没有，没有就根据scope找上一级的variables，就这样一层一层往上找，直到找到为止。
+
 ![js-scope](https://pigfly88.github.io/images/js-scope.png?v=2)
 
 ### 参考资料
