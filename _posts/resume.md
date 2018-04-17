@@ -1,6 +1,6 @@
 ---
 title: 个人简历
-permalink: /resume/
+permalink: resume.html
 ---
 
 ## 个人信息
