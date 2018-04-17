@@ -11,13 +11,11 @@
         </li>
         {% for category in site.categories %}
         {% assign catename = category | first %}
-        {% if catename!='self' %}
         <li>
           <a {% if page.categories==catename %}class="nav_active"{% endif %} href="/cate/{{ catename }}.html">
           {{ category | first }}
           </a>
         </li>
-        {% endif %}
         {% endfor %}
         
       </ul>
