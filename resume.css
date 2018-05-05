@@ -1,0 +1,9 @@
+em {
+    border-bottom: 2px dotted;
+    font-style: normal;
+    padding-bottom: .05em;
+}
+
+p {
+    margin: 5px 0;
+}
