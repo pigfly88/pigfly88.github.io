@@ -1,12 +1,15 @@
 ---
 layout: post
-category: "linux"
+category: "工具"
 title:  "svn命令"
 ---
 
 ```shell
 # 更新
 svn up
+
+# 添加文件
+svn add index.php
 
 # 提交
 svn ci -m "commit"
