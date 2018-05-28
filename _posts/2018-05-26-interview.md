@@ -3,11 +3,21 @@ layout: post
 category: "mix"
 title:  "PHP面试题"
 ---
+## PHP函数
 
 - 查出上个月最后一天的日期
 
-date('Y-m-d',strtotime('last day of last month'))
+	```php
+	echo date('Y-m-d',strtotime('last day of last month'));
+	```
 
+***
+## 数据库
+- MySQL有哪些引擎？各有什么应用场景？
+- InnoDB什么情况锁表
+- 有一个表，每天100万的增量，如何设计？
+- 设计索引的原则
+- 
 - 有如下学生表、课程表、成绩表
 
 	```sql
