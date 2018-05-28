@@ -18,6 +18,7 @@ cli
 ```
 
 ```php
+<?php
 echo PHP_SAPI; // 输出apache2handler
 ```
 
@@ -26,7 +27,7 @@ echo PHP_SAPI; // 输出apache2handler
 
 就像我们经常用到的虚拟主机配置，它是作为Apache的一个子模块，当我们修改了vhost配置，只需要重启Apache，就可以读取到最新的配置。那么Apache是如何加载这些模块使之生效的呢？别急，先看看Apache的运行过程
 
-## Apache的运行过程
+### Apache的运行过程
 
 Apache的运行分为启动阶段和运行阶段。 在启动阶段，Apache为了获得系统资源最大的使用权限，将以特权用户root（*nix系统）或超级管理员Administrator(Windows系统)完成启动， 并且整个过程处于一个单进程单线程的环境中。 这个阶段包括配置文件解析(如http.conf文件)、模块加载(如mod_php，mod_perl)和系统资源初始化（例如日志文件、共享内存段、数据库连接等）等工作。
 
@@ -34,7 +35,7 @@ Apache的启动阶段执行了大量的初始化操作，并且将许多比较�
 
 在运行阶段，Apache主要工作是处理用户的服务请求。 在这个阶段，Apache放弃特权用户级别，使用普通权限，这主要是基于安全性的考虑，防止由于代码的缺陷引起的安全漏洞。 Apache对HTTP的请求可以分为连接、处理和断开连接三个大的阶段。
 
-## Apache的模块加载
+### Apache的模块加载
 
 Apache模块加载分为静态和动态
 
@@ -54,7 +55,7 @@ Apache模块加载分为静态和动态
 
 	缺点：启动和执行速度有所降低
 
-## PHP作为Apache动态模块的安装过程
+### PHP作为Apache动态模块的安装过程
 
 详细内容可参考[PHP官方文档](http://php.net/manual/zh/install.unix.apache.php)
 
@@ -103,7 +104,7 @@ Apache模块加载分为静态和动态
 
 第10行的with-apxs是什么意思呢？
 
-## apxs
+### apxs
 apxs: Apache Extension Tool（注意不是asp.net文件的后缀）
 > apxs是一个为Apache HTTP服务器编译和安装扩展模块的工具，用于编译一个或多个源程序或目标代码文件为动态共享对象，使之可以用由mod_so提供的**LoadModule**指令在运行时加载到Apache服务器中。
 > 
@@ -111,29 +112,48 @@ apxs: Apache Extension Tool（注意不是asp.net文件的后缀）
 
 也就是说apxs是Apache用来安装动态模块的工具，在编译PHP的时候，加上--with-apxs就是把PHP作为Apache的动态模块
 
+### mod_php5是如何让Apache和PHP协同工作的？
 
-
-## mod_php5是如何让Apache和PHP协同工作的？
-
-1. 启动Apache，加载mod_php5模块，Apache启动多个httpd进程监听客户端请求
+1. 启动Apache，解析配置文件，加载模块，mod_php5.so被加载到内存中，启动多个httpd进程监听客户端请求
+1. 启动完成，等待客户端请求
 1. 客户端请求index.php
 1. 其中一个httpd进程调用mod_php5模块
 1. mod_php5模块调用PHP解析器、引擎，解析和执行PHP代码
 1. mod_php5给httpd返回执行结果
 1. httpd给客户端返回响应结果
 
+### mod_php5的优缺点
+- 优点：每个Apache进程启动的时候，PHP的环境已经初始化好，请求来的时候，直接就可以解释执行目标PHP文件。
+
+- 缺点：与Apache耦合度比较深，如果使用了opcode缓存的话，PHP代码更改了，要重启Apache
+
 ## CGI
 CGI: Common Gateway Interface 通用网关接口
 
-web server每收到一个请求，就会启动一个cgi进程来处理，cgi处理返回结果，然后结束进程
-和mod_php5模块方式相比好处是减少了web server和php的耦合，但是每次请求都会重新加载php配置和执行一些初始化工作，进程不停地启动和结束会造成很大开销
+Web Server每收到一个请求，就会启动一个CGI进程来处理，CGI处理返回结果，然后结束进程
+和mod_php5模块方式相比好处是减少了Web Server和PHP的耦合，但是每次请求都会重新加载php配置和执行一些初始化工作，进程不停地启动和结束会造成很大开销
 
+## FastCGI
 
+FastCGI是Web服务器和处理程序之间通信的一种协议， 是CGI的一种改进方案，FastCGI像是一个常驻(long-lived)型的CGI， 它可以一直执行，在请求到达时不会花费时间去fork一个进程来处理(这是CGI最为人诟病的fork-and-execute模式)。 正是因为他只是一个通信协议，它还支持分布式的运算，所以 FastCGI 程序可以在网站服务器以外的主机上执行，并且可以接受来自其它网站服务器的请求。
 
+FastCGI 是与语言无关的、可伸缩架构的 CGI 开放扩展，将 CGI 解释器进程保持在内存中，以此获得较高的性能。 CGI 程序反复加载是 CGI 性能低下的主要原因，如果 CGI 程序保持在内存中并接受 FastCGI 进程管理器调度， 则可以提供良好的性能、伸缩性、Fail-Over 特性等。
 
+### FastCGI 工作流程
 
+FastCGI 进程管理器自身初始化，启动多个 CGI 解释器进程，并等待来自 Web Server 的连接。
+Web 服务器与 FastCGI 进程管理器进行 Socket 通信，通过 FastCGI 协议发送 CGI 环境变量和标准输入数据给 CGI 解释器进程。
+CGI 解释器进程完成处理后将标准输出和错误信息从同一连接返回 Web Server。
+CGI 解释器进程接着等待并处理来自 Web Server 的下一个连接。
+
+### PHP-FPM
+
+PHP-FPM 是对于 FastCGI 协议的具体实现，他负责管理一个进程池，来处理来自Web服务器的请求
 
 ## 参考文档
-
-- http://httpd.apache.org/docs/2.4/zh-cn/dso.html
-- http://www.cnblogs.com/skynet/p/3372855.html
+- [php手册-安装-Unix 系统下的 Apache 1.3.x](http://php.net/manual/zh/install.unix.apache.php)
+- [Apache DSO](http://httpd.apache.org/docs/2.4/zh-cn/dso.html)
+- [深入理解Zend SAPIs](http://www.laruence.com/2008/08/12/180.html)
+- [深入理解PHP内核](http://www.php-internals.com/book/?p=chapt02/02-02-00-overview)
+- [C++静态库与动态库](http://www.cnblogs.com/skynet/p/3372855.html)
+- [CGI、FastCGI和PHP-FPM关系图解](https://www.awaimai.com/371.html)
