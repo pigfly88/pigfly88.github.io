@@ -1,9 +1,3 @@
----
-layout: post
-category: "mix"
-title:  "PHP面试题"
----
-
 ## PHP函数
 查出上个月最后一天的日期
 

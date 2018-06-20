@@ -99,6 +99,6 @@ mysql> SET SESSION TRANSACTION ISOLATION LEVEL SERIALIZABLE;
 - 没有索引。锁定主键索引的所有记录，并在主键索引每条记录之间的间隙加上了gap锁
 
 ## 参考资料
-> 1. (MySQL 加锁处理分析)[http://hedengcheng.com/?p=771]
-> 1. (MySQL refman innodb-transaction-isolation-levels)[https://dev.mysql.com/doc/refman/8.0/en/innodb-transaction-isolation-levels.html]
-> 1. (InnoDB中的事务隔离级别和锁的关系)[https://tech.meituan.com/innodb-lock.html]
+- [MySQL 加锁处理分析](http://hedengcheng.com/?p=771)
+- [MySQL refman innodb-transaction-isolation-levels](https://dev.mysql.com/doc/refman/8.0/en/innodb-transaction-isolation-levels.html)
+- [InnoDB中的事务隔离级别和锁的关系](https://tech.meituan.com/innodb-lock.html)
