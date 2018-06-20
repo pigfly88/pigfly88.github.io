@@ -1,10 +1,14 @@
+---
+layout: post
+category: mysql
+title:  MySQL复制初探
+---
+
 ## 复制原理
 ![mysql replication](/images/mysql-replication.jpg)
 
-mysql> CREATE DATABASE IF NOT EXISTS `shop`
-    -> DEFAULT CHARSET = utf8
-    -> DEFAULT COLLATE = utf8_general_ci;
-
+```shell
+mysql> CREATE DATABASE IF NOT EXISTS `shop`;
 
 mysql> CREATE TABLE `orders` (
  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -15,9 +19,10 @@ mysql> CREATE TABLE `orders` (
  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-insert into `orders` values (null, '2018053001', 1, 99.8, 1);
+mysql> insert into `orders` values (null, '2018053001', 1, 99.8, 1);
 
 mysql> GRANT REPLICATION SLAVE,REPLICATION CLIENT ON *.* TO repl@'192.168.56.%' IDENTIFIED BY '%678NJImko';
+```
 
 [root@vm11 ~]# mysqld --verbose --help | grep -A 1 'Default options'
 Default options are read from the following files in the given order:
