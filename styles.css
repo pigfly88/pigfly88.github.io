@@ -626,34 +626,19 @@ footer span {
 }
 
 table thead, table tr {
-border-top-width: 1px;
-border-top-style: solid;
-border-top-color: rgb(211, 202, 221);
+    border-style: solid;
+    border-width: 1px 0;
 }
 
 table {
-border-bottom-width: 1px;
-border-bottom-style: solid;
-border-bottom-color: rgb(211, 202, 221);
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
 table td, table th {
-padding: 5px 10px;
-font-size: 12px;
-font-family: Verdana;
-color: rgb(95, 74, 121);
-}
-
-table tr:nth-child(even) {
-background: rgb(223, 216, 232)
-}
-table tr:nth-child(odd) {
-background: #FFF
-}
-
-table td {
     word-break: break-all;
     word-wrap:break-word;
+    padding: 5px 10px;
 }
 
 pre,code{font-family: Monaco,Consolas,Courier,monospace,"Source Code Pro";border-left: 15px solid #555;font-weight: normal;font-style: normal;font-size: 0.8em;margin:1em 0em;padding:.5em .5em;overflow-x:auto;/*border:5px solid #E0DFCC;border-radius:20px;*/max-width:100%;max-height: 45em;}
