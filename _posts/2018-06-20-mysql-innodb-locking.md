@@ -37,21 +37,48 @@ mysql> SET GLOBAL innodb_status_output=ON;
 mysql> SET GLOBAL innodb_status_output_locks=ON;
 ```
 
-T1 | T2
------------- | -------------
-start transaction; | start transaction;
+<table>
+<thead>
+<tr>
+<th>T1</th>
+<th>T2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>start transaction;</td>
+<td>start transaction;</td>
+</tr>
+<tr>
+<td>
 select * from user where id=1 lock in share mode;
 +----+--------+-------------+
 | id | name   | phone       |
 +----+--------+-------------+
 |  1 | pigfly | 13714148963 |
-+----+--------+-------------+ | 
- | select * from user where id=1;
++----+--------+-------------+
+</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>
+select * from user where id=1;
+<p>
 +----+--------+-------------+
 | id | name   | phone       |
 +----+--------+-------------+
 |  1 | pigfly | 13714148963 |
 +----+--------+-------------+
+</p>
+</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 
 
 ### 意向锁
