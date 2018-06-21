@@ -51,12 +51,12 @@ mysql> SET GLOBAL innodb_status_output_locks=ON;
 </tr>
 <tr>
 <td>
-select * from user where id=1 lock in share mode;<br>
-+----+--------+-------------+<br>
-| id | name   | phone       |<br>
-+----+--------+-------------+<br>
-|  1 | pigfly | 13714148963 |<br>
-+----+--------+-------------+
+<pre>select * from user where id=1 lock in share mode;</pre>
+<pre>+----+--------+-------------+</pre>
+<pre>| id | name   | phone       |</pre>
+<pre>+----+--------+-------------+</pre>
+<pre>|  1 | pigfly | 13714148963 |</pre>
+<pre>+----+--------+-------------+</pre>
 </td>
 <td></td>
 </tr>

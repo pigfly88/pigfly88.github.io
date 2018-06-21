@@ -635,15 +635,18 @@ table {
     border-spacing: 0;
 }
 
-table td, table th {
+table td {
     word-break: break-all;
     word-wrap:break-word;
     padding: 5px 10px;
 }
 
-pre,code{font-family: Monaco,Consolas,Courier,monospace,"Source Code Pro";border-left: 15px solid #555;font-weight: normal;font-style: normal;font-size: 0.8em;margin:1em 0em;padding:.5em .5em;overflow-x:auto;/*border:5px solid #E0DFCC;border-radius:20px;*/max-width:100%;max-height: 45em;}
+table th {
+    font-weight: bold;
+}
+.highlight,code{font-family: Monaco,Consolas,Courier,monospace,"Source Code Pro";border-left: 15px solid #555;font-weight: normal;font-style: normal;font-size: 0.8em;margin:1em 0em;padding:.5em .5em;overflow-x:auto;/*border:5px solid #E0DFCC;border-radius:20px;*/max-width:100%;max-height: 45em;}
 code{/* margin:0 2px 0 2px;border-radius:4px; */padding:3px;border:0;background: black;color: #fff;}
-pre code{border:0;padding:0 0 0 0;}
+.highlight code{border:0;padding:0 0 0 0;}
 
 .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
