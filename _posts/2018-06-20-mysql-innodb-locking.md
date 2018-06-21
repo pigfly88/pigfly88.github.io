@@ -63,19 +63,16 @@ mysql> SET GLOBAL innodb_status_output_locks=ON;
 <tr>
 <td></td>
 <td>
-select * from user where id=1;<br>
-+----+--------+-------------+<br>
-| id | name   | phone       |<br>
-+----+--------+-------------+<br>
-|  1 | pigfly | 13714148963 |<br>
-+----+--------+-------------+
+<pre>select * from user where id=1;</pre>
+<pre>+----+--------+-------------+</pre>
+<pre>| id | name   | phone       |</pre>
+<pre>+----+--------+-------------+</pre>
+<pre>|  1 | pigfly | 13714148963 |</pre>
+<pre>+----+--------+-------------+</pre>
 </p>
 </td>
 </tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
+
 </tbody>
 </table>
 
