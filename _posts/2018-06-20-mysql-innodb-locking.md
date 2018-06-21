@@ -60,22 +60,33 @@ mysql> SET GLOBAL innodb_status_output_locks=ON;
 </td>
 <td></td>
 </tr>
+
 <tr>
 <td></td>
 <td>
-<pre>select * from user where id=1;</pre>
+<pre>select * from user where id=1 lock in share mode;</pre>
 <pre>+----+--------+-------------+</pre>
 <pre>| id | name   | phone       |</pre>
 <pre>+----+--------+-------------+</pre>
 <pre>|  1 | pigfly | 13714148963 |</pre>
 <pre>+----+--------+-------------+</pre>
-</p>
 </td>
 </tr>
 
+<tr>
+<td></td>
+<td>
+<pre>select * from user where id=1 for update;</pre>
+<pre>waiting...</pre>
+<pre>ERROR 1205 (HY000): Lock wait timeout exceeded; try restarting transaction</pre>
+</td>
+</tr>
 </tbody>
 </table>
 
+```sql
+mysql> SHOW ENGINE INNODB STATUS\G
+```
 
 ### 意向锁
 
