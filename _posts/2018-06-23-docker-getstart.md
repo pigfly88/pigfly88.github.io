@@ -1,7 +1,7 @@
 ---
 layout: post
 category: "linux"
-title:  "Docker入门"
+title:  "用Docker构建PHP项目"
 ---
 
 Docker就是把应用所需要的一切东西都打包，从而可以很方便地进行部署。
