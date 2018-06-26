@@ -29,6 +29,11 @@ $ docker image pull library/hello-world
 $ docker run hello-world
 ```
 
+### 镜像加速
+```
+$ docker pull registry.docker-cn.com/myname/myrepo:mytag
+```
+
 ### image和container
 
 所有内容（代码、依赖、环境等）会打包成一个image文件，container是image的实例。
