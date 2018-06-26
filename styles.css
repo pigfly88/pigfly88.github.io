@@ -355,9 +355,12 @@ table th {
     font-weight: bold;
 }
 
+@import "github.css";
+
+/*
 pre {margin:0;color: #000;}
-pre.highlight,code{font-family: Monaco,Consolas,Courier,monospace,"Source Code Pro";border-left: 15px solid #555;font-weight: normal;font-style: normal;font-size: 0.8em;margin:1em 0em;padding:.5em .5em;overflow-x:auto;/*border:5px solid #E0DFCC;border-radius:20px;*/max-width:100%;max-height: 45em;}
-code{/* margin:0 2px 0 2px;border-radius:4px; */padding:3px;border:0;background: #333;color: #fff;}
+pre.highlight,code{font-family: Monaco,Consolas,Courier,monospace,"Source Code Pro";border-left: 15px solid #555;font-weight: normal;font-style: normal;font-size: 0.8em;margin:1em 0em;padding:.5em .5em;overflow-x:auto;max-width:100%;max-height: 45em;}
+code{padding:3px;border:0;background: #333;color: #fff;}
 .highlight code{border:0;padding:0 0 0 0;}
 
 .highlight table td { padding: 5px; }
