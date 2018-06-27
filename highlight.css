@@ -1,4 +1,4 @@
-.highlight  { background: #272822; color: #f8f8f2; font-size: 12px; font-family: Monaco,Consolas,Courier,monospace,"Source Code Pro"; }
+.highlight  { background: #272822; color: #f8f8f2; font: normal 0.875rem/1.5rem "Fira Mono", "Source Code Pro", monospace, Monaco,Consolas,Courier; }
 pre.highlight { padding: .5em; }
 .highlight .gh {
   color: #999999;
