@@ -355,6 +355,6 @@ table th {
     font-weight: bold;
 }
 
-@import "highlight-monokai.css"
+/* @import "highlight-monokai.css" */
 
 /* .post p {text-indent: 2em} */
