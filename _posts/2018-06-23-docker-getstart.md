@@ -65,5 +65,5 @@ CMD [ "php", "./index.php" ]
 ```bash
 $ docker build -t docker-demo .
 $ docker run --rm docker-demo
-5.6.36$
+5.6.36
 ```
