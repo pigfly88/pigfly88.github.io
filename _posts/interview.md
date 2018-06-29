@@ -47,6 +47,11 @@ where sc.student_id=s.id
 group by sc.student_id
 ```
 
+查出每门课程最高成绩的课程、学生学号、姓名、分数
+```sql
+select * from score s1 where s1.score = (select max(score) from score s2 where s2.course_id=s1.course_id)
+```
+
 查出没有全选课程的学生学号、姓名、课程数、总分
 ```sql
 select s.no, s.name,count(sc.id) as course_count, sum(sc.score) as total_score from
