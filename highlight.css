@@ -1,5 +1,5 @@
 .highlight  { background: #272822; color: #f8f8f2; font: normal 0.875rem/1.5rem Monaco, Consolas, "Source Code Pro", monospace, Courier; }
-pre.highlight { padding: .5em; }
+pre.highlight { padding: .5em; overflow-x:auto;max-width:100%;max-height: 45em;}
 .highlight .gh {
   color: #999999;
 }
