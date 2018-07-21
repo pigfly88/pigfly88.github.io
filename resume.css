@@ -7,3 +7,7 @@ em {
 p {
     margin: 5px 0;
 }
+
+ul li {
+    margin-bottom: 2px;
+}
