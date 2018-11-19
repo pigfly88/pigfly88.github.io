@@ -3,7 +3,9 @@ layout: post
 category: "工具"
 title:  "办公常用快捷键"
 ---
+
 # chrome
+
 Ctrl + t 打开新的标签页
 
 Ctrl + PgUp 切换到上一个标签页
@@ -19,6 +21,9 @@ PgDn 向下滚动网页
 PgUp 向上滚动网页
 
 # windows
+
+Alt + Tab 切换窗口
+
 Win + L 锁定
 
 Win + D 显示桌面
