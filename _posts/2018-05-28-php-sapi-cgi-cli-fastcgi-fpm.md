@@ -130,7 +130,7 @@ apxs: Apache Extension Tool（注意不是asp.net文件的后缀）
 ## CGI
 CGI: Common Gateway Interface 通用网关接口
 
-Web Server每收到一个请求，就会启动一个CGI进程来处理，CGI处理返回结果，然后结束进程
+Web Server每收到一个请求，就会fork一个CGI进程来处理，CGI处理返回结果，然后结束进程
 和mod_php5模块方式相比好处是减少了Web Server和PHP的耦合，但是每次请求都会重新加载php配置和执行一些初始化工作，进程不停地启动和结束会造成很大开销
 
 ## FastCGI
