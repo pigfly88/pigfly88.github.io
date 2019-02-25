@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  MySQL事务隔离级别实例分析
-categories: javascript
+categories: mysql
 ---
 
 ## 4种隔离级别
