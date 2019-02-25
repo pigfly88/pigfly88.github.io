@@ -1,7 +1,7 @@
 ---
 layout: post
 category: "php"
-title:  "php sapi cgi cli fastcgi fpm"
+title:  "SAPI,CGI,CLI,FastCGI,FPM的区别"
 ---
 
 ## 什么是SAPI
