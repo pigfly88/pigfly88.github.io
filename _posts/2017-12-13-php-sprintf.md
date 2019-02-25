@@ -1,7 +1,7 @@
 ---
 layout: post
 category: "php"
-title:  "PHP sprintf"
+title:  "你未必知道的sprintf"
 ---
 
 sprintf用来格式化字符串
