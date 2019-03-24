@@ -4,12 +4,20 @@ category: mysql
 title:  MySQL复制初探
 ---
 
+当需要分摊数据库查询压力的时候，要部署多台MySQL来实现读写分离，比如一主多从，主可以读和写，从只能读，这个时候就需要用到复制来让这几台数据库的数据同步。
+
 ## 复制原理
+MySQL支持两种复制方案：
+- 基于语句复制
+- 基于行复制
+
+两种方式都是通过在主服务器上面写二进制日志，从服务器拉取日志然后重放。
 ![mysql replication](/images/mysql-replication.jpg)
 
+下面我们就来简单体验一下MySQL的复制，首先在主服务器上面创建一个用于测试的数据库：
 ```shell
 mysql> CREATE DATABASE IF NOT EXISTS `shop`;
-
+mysql> USER `shop`;
 mysql> CREATE TABLE `orders` (
  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
  `orderno` char(60) NOT NULL DEFAULT '',
@@ -19,11 +27,16 @@ mysql> CREATE TABLE `orders` (
  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-mysql> insert into `orders` values (null, '2018053001', 1, 99.8, 1);
+mysql> INSERT INTO `orders` VALUES (null, '2018053001', 1, 99.8, 1);
+```
 
+在主服务器上创建一个复制账号，其中repl是用户名，@后面可以配置IP限制：
+```shell
 mysql> GRANT REPLICATION SLAVE,REPLICATION CLIENT ON *.* TO repl@'192.168.56.%' IDENTIFIED BY '%678NJImko';
 ```
 
+在主服务器上面打开二进制日志并且配置server id：
+```shell
 [root@vm11 ~]# mysqld --verbose --help | grep -A 1 'Default options'
 Default options are read from the following files in the given order:
 /etc/my.cnf /etc/mysql/my.cnf /usr/etc/my.cnf ~/.my.cnf
@@ -31,7 +44,22 @@ Default options are read from the following files in the given order:
 log_bin=mysql-bin
 server_id=11
 
+#配置好后重启musql
 service mysqld restart
+```
+
+从服务器配置：
+```shell
+log_bin=mysql-bin
+server_id=10
+relay_log=mysql-relay-bin
+log_slave_updates=1
+read_only=1
+
+#配置好后重启musql
+service mysqld restart
+```
+
 # 关闭防火墙
 systemctl stop firewalld
 systemctl disable firewalld
@@ -46,24 +74,14 @@ mysql> show master status;
 +------------------+----------+--------------+------------------+-------------------+
 1 row in set (0.00 sec)
 
-### 从服务器配置
-
-log_bin=mysql-bin
-server_id=10
-relay_log=mysql-relay-bin
-log_slave_updates=1
-read_only=1
-
-service mysqld restart
-
 ### 开始复制
+在从服务器上启动复制：
+```shell
 mysql> CHANGE MASTER TO MASTER_HOST='192.168.56.11',
     -> MASTER_USER='repl',
     -> MASTER_PASSWORD='%678NJImko',
     -> MASTER_LOG_FILE='mysql-bin.000002',
     -> MASTER_LOG_POS=0;
-
-insert into `orders` values (null, '2018053002', 2, 39, 1);
 
 mysql> START SLAVE;
 mysql> SHOW SLAVE STATUS;
