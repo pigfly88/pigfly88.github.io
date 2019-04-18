@@ -1,0 +1,7 @@
+### Cookie
+HTTP是无状态的，如果要把一些数据保存到客户端，然后服务端可以很轻松地拿到这些数据怎么办？比如在用户未登录的状态下记录购物车里面的商品，这时候Cookie就派上用场了，用户点击加入购物车时，客户端利用JS将商品保存到Cookie中（当然也可以ajax请求交给php调用一个setcookie，其实就是在HTTP头里面加上set-cookie，注意php并没有直接去操作Cookie，而是依赖HTTP协议，客户端收到set-cookie的操作之后进行Cookie的设置），然后客户端下一次请求服务端的时候会自动把Cookie带上。
+
+由于Cookie在每次请求都会带上（虽然可以通过设置path之类的屏蔽掉一些），在一定程度上造成网络开销的浪费，相比之下Local Storage会是一个比较好的方案。
+
+### Session
+Cookie是保存在客户端的，而Session是借助一个特殊的Cookie把数据保存到服务端，在PHP中，这个特殊的Cookie名字叫做PHPSESSID。
