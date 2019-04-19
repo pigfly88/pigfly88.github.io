@@ -4,6 +4,10 @@ category: "网络"
 title:  "HTTP缓存"
 ---
 
+缓存在web环境各个环节都有实现，有CPU缓存、文件缓存、程序的Opcode缓存（APC,eAccelerator）、内存缓存（Memcached,Redis）、代理服务器(Nginx,Squid)、数据库的查询缓存、基于HTTP的客户端缓存。其中HTTP缓存是离用户最近的缓存，访问最快，合理使用可以加快数据加载速度、减少服务器的开销。
+
+HTTP缓存通过设置一些头加以控制，有一部分是控制要不要缓存、怎么缓存、以及缓存多久的，还有一部分是决定缓存过期以后怎么处理的。
+
 - 缓存控制
 	- Cache-Control
 		- public：公共，可以被客户端和代理服务器（如Nginx、Squid）缓存
@@ -17,9 +21,9 @@ title:  "HTTP缓存"
 - 缓存校验
 	- 过期
 		- max-age
-			- 缓存时间，距离请求发起的时间的秒数
+			- 缓存时间，距离请求发起的时间的秒数，设置到Cache-Control头里面
 		- Expires
-			- 和max-age类似，但是Expires受客户端时间影响，是HTTP/1.0的标准，max-age是它的改良版，优先级为：max-age -> Expires
+			- 过期时间，它的格式是格林威治时间，和max-age类似，但是Expires受客户端时间影响，是HTTP/1.0的标准，max-age是它的改良版，优先级为：max-age -> Expires
 	- 比对
 		- Last-Modified
 			- 资源修改时间，与客户端的If-Modified-Since配合使用
@@ -29,7 +33,7 @@ title:  "HTTP缓存"
 ### 实例
 缓存一分钟，一分钟内直接读取本地缓存，一分钟后重新请求服务器：
 
-```http
+```
 Cache-Control: max-age=60, must-revalidate
 ```
 
@@ -37,23 +41,21 @@ Cache-Control: max-age=60, must-revalidate
 
 缓存一分钟，一分钟内直接读取本地缓存，一分钟以后跟服务器比对ETag，如果ETag没有变化，那么接下来的一分钟内直接读取本地缓存：
 
-```http
+```
 Cache-Control: max-age=60, must-revalidate
-
 ETag: abc
 ```
 
 每次都要跟服务器比对ETag是否相同，适合更新稍微比较频繁并且需要及时显示最新内容的资源：
 
-```http
+```
 Cache-Control: no-cache
-
 ETag: abc
 ```
 
 不缓存：
 
-```http
+```
 Cache-Control: no-store
 ```
 
