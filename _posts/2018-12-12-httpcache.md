@@ -142,5 +142,6 @@ echo $data;
 
 ### 参考资料
 1. [https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching_FAQ](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching_FAQ)
-1. [面向站长和网站管理员的Web缓存加速指南](https://www.chedong.com/tech/cache_docs.html)
-2. [how-to-optimize-your-site-with-http-caching](https://betterexplained.com/articles/how-to-optimize-your-site-with-http-caching/)
+2. [面向站长和网站管理员的Web缓存加速指南](https://www.chedong.com/tech/cache_docs.html)
+3. [how-to-optimize-your-site-with-http-caching](https://betterexplained.com/articles/how-to-optimize-your-site-with-http-caching/)
+4. [PHP核心技术与最佳实践](https://e.jd.com/30432270.html)
