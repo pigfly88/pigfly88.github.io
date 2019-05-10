@@ -6,22 +6,25 @@ categories: mysql
 
 ## 什么是索引？
 
-索引是提高MySQL查询效率的一种数据结构，可以在某一列或多个列上创建索引，这样MySQL就能很快的找到匹配值所在的行
+索引的出现其实就是为了提高数据查询的效率，就像书的目录一样。
 
 索引本身也占据磁盘空间，并且在数据更新的时候索引也需要进行更新，所以如果使用了不恰当的索引，不但不能提高查询效率，反而浪费了磁盘空间和加重了数据更新的成本
 
 ## 索引的类型
 
 1. B-tree(B树索引)
-    大多数索引都使用B树存储，比如PRIMARY KEY, UNIQUE, INDEX, FULLTEXT
+
+    大多数索引都使用B树存储，比如PRIMARY KEY, UNIQUE, INDEX, FULLTEXT。
 
 1. Hash(哈希索引)
-    仅MEMORY引擎支持
+
+    KV结构，适用于等值查询，仅MEMORY引擎支持。
 
 1. R-tree(空间索引)
 
 1. Full-text(全文索引)
-    InnoDB使用反向列表存储
+
+    InnoDB使用反向列表存储。
 
 ## 索引的法则
 
@@ -66,3 +69,4 @@ mysql> EXPLAIN SELECT * FROM employees WHERE last_name = 'Piveteau';
 ## 参考资料
 1. [从B 树、B+ 树、B* 树谈到R 树](https://blog.csdn.net/v_JULY_v/article/details/6530142)
 1. [算法可视化](https://www.cs.usfca.edu/~galles/visualization/BTree.html)
+2. [MySQL实战45讲](https://time.geekbang.org/column/intro/139)
