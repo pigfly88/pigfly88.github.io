@@ -4,7 +4,6 @@ title:  MySQL事务隔离级别实例分析
 categories: mysql
 ---
 
-## 4种隔离级别
 隔离级别用来限定事务内的可见性，SQL标准定义了4种隔离级别，MySQL默认使用RR
 
 1. READ UNCOMMITTED（读取未提交，以下简称RU）
@@ -21,7 +20,22 @@ categories: mysql
 
 1. SERIALIZABLE（串行）
 
-## 查看和设置隔离级别
+	对应一个记录会加锁，出现冲突的时候，后访问的事务必须等前一个事务执行完成才能继续执行
+
+#### 事务隔离的实现
+
+每条记录在更新的时候都会同时记录一条回滚操作。同一条记录在系统中可以存在多个版本，这就是数据库的多版本并发控制（MVCC）。
+
+#### 为什么尽量不要使用长事务？
+
+长事务意味着系统里面会存在很老的事务视图，在这个事务提交之前，回滚记录都要保留，这会导致大量占用存储空间。除此之外，长事务还占用锁资源，可能会拖垮库。
+
+在开发过程中，少用长事务，如果无法避免，保证逻辑日志空间足够用，并且支持动态日志空间增长。可以在 information_schema 库的 innodb_trx 这个表中查询长事务，比如下面这个语句，用于查找持续时间超过 60s 的事务：
+```sql
+select * from information_schema.innodb_trx where TIME_TO_SEC(timediff(now(),trx_started))>60
+```
+
+### 查看和设置隔离级别
 
 查看全局和当前会话的隔离级别：
 
@@ -40,7 +54,7 @@ mysql> SELECT @@global.tx_isolation, @@tx_isolation;
 mysql> SET SESSION TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 ```
 
-要修改全局配置，修改my.ini配置文件的transaction-isolation选项
+要修改全局配置，修改my.ini配置文件的```transaction-isolation```选项
 
 ## 各个隔离级别下的实例演示
 

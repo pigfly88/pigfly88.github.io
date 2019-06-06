@@ -105,7 +105,7 @@ write pos 和 checkpoint 之间的是“粉板”上还空着的部分，可以�
 下面是这个 update 语句的执行流程图，图中浅色框表示是在 InnoDB 内部执行的，深色框表示是在执行器中执行的。
 ![](/images/mysql-update-flow.png)
 
-需要注意的是操作系统默认的读写都是有缓存的，也就是说binlog和redo log不是直接写到磁盘上的，而是会先写到缓存中。
+需要注意的是，操作系统默认的读写一般都不是直接读写磁盘而是读写缓冲区，这样做的原因是磁盘读写性能是很差的，也就是说binlog和redo log不是直接写到磁盘上的，而是会先写到缓冲区。
 
 redo log 用于保证 crash-safe 能力。```innodb_flush_log_at_trx_commit``` 这个参数设置成 1 的时候，表示每次事务的 redo log 都直接持久化到磁盘。建议设置成 1，这样可以保证 MySQL 异常重启之后数据不丢失。
 
