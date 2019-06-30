@@ -13,7 +13,7 @@
 - 熟悉MySQL，掌握数据库设计及优化，熟悉NoSQL，使用过MongoDB、Memcached、Redis
 - 熟悉CSS和JavaScript，使用过Bootstrap，Vue框架
 - 熟悉Linux系统和Shell编程
-- 熟悉HTTP、TCP/IP协议和网络编程
+- 熟悉HTTP协议和网络编程
 
 ## 工作经验
 

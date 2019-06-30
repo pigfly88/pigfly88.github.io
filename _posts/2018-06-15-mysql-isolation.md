@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  MySQL事务隔离级别实例分析
+title:  MySQL事务的隔离级别
 categories: mysql
 ---
 
@@ -34,6 +34,13 @@ categories: mysql
 ```sql
 select * from information_schema.innodb_trx where TIME_TO_SEC(timediff(now(),trx_started))>60
 ```
+
+#### 为什么MySQL默认的隔离级别是可重复读？
+在MySQL5.0以前，如果采用读已提交，主从复制会存在bug。因为当时的binlog只支持statement格式，会导致master和slave的SQL执行顺序不一致，而最终导致主从数据不一致。
+
+所以当时的解决办法就是把隔离级别设置为可重复读，在这个级别下，会通过间隙锁来保证执行的顺序。
+
+后来binlog有了row格式，它不会出现这种执行顺序不一致的问题，InnoDB作者也提倡采用这种格式，这时候，采用读已提交的隔离级别，会有较好的并发性能。
 
 ### 查看和设置隔离级别
 
@@ -113,6 +120,8 @@ mysql> SET SESSION TRANSACTION ISOLATION LEVEL SERIALIZABLE;
 - 没有索引。锁定主键索引的所有记录，并在主键索引每条记录之间的间隙加上了gap锁
 
 ## 参考资料
+- [MySQL实战45讲](https://time.geekbang.org/column/article/68319)
+- [MySQL管理之道](https://item.jd.com/11973797.html)
 - [MySQL 加锁处理分析](http://hedengcheng.com/?p=771)
 - [MySQL refman innodb-transaction-isolation-levels](https://dev.mysql.com/doc/refman/8.0/en/innodb-transaction-isolation-levels.html)
 - [InnoDB中的事务隔离级别和锁的关系](https://tech.meituan.com/innodb-lock.html)
