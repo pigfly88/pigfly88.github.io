@@ -55,8 +55,3 @@ class MDB2
 ```
 
 ### 参考资料
-- [Docker 官方文档](https://docs.docker.com/get-started/)
-- [Docker 入门教程](http://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html)
-- [Docker — 从入门到实践](https://docker_practice.gitee.io/)
-- [Docker for beginners](https://github.com/docker/labs/tree/master/beginner)
-- [Setting up PHP, PHP-FPM and NGINX for local development on Docker](https://www.pascallandau.com/blog/php-php-fpm-and-nginx-on-docker-in-windows-10/)
