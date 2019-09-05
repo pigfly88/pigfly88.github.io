@@ -27,3 +27,9 @@ categories: linux
 ### 网络相关
 - ss -pl | grep 3306
 	查看3306端口状态。ss: socket status，查看socket状态。
+
+添加PATH变量
+
+vi /etc/profile
+export PATH=/usr/local/bin:$PATH
+soruce /etc/profile
