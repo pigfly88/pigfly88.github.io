@@ -8,23 +8,29 @@ categories: mysql
 
 索引的出现其实就是为了提高数据查询的效率，就像书的目录一样。
 
-索引本身也占据磁盘空间，并且在数据更新的时候索引也需要进行更新，所以如果使用了不恰当的索引，不但不能提高查询效率，反而浪费了磁盘空间和加重了数据更新的成本
+索引本身也占据磁盘空间，更新和删除数据的时候也要对索引进行维护。
 
 ## 索引的类型
 
-1. B-tree(B树索引)
+- 哈希：KV结构，只适用于等值查询，仅MEMORY引擎支持。
+- B+树：大多数索引都使用B树存储，比如PRIMARY KEY, UNIQUE, INDEX, FULLTEXT。
 
-    大多数索引都使用B树存储，比如PRIMARY KEY, UNIQUE, INDEX, FULLTEXT。
+![](/images/index-hash-vs-btree.jpg)
 
-1. Hash(哈希索引)
+### B树和B+树
 
-    KV结构，适用于等值查询，仅MEMORY引擎支持。
+![](/images/btree-vs-b+tree.png)
+- B树
+	- 叶子节点，非叶子节点，都存储数据；
+	- 中序遍历，可以获得所有节点。
+- B+树
+	- 数据只存储在叶子节点上；
+	- 叶子之间，增加了链表，获取所有节点，不再需要中序遍历。
 
-1. R-tree(空间索引)
+B+树的优势：
 
-1. Full-text(全文索引)
-
-    InnoDB使用反向列表存储。
+- 范围查找，定位min与max之后，中间叶子节点，就是结果集，不用中序回溯；
+- 非叶子节点，不存储实际记录，在相同内存的情况下，B+树能够存储更多索引。
 
 ## 索引的法则
 
@@ -69,4 +75,5 @@ mysql> EXPLAIN SELECT * FROM employees WHERE last_name = 'Piveteau';
 ## 参考资料
 1. [从B 树、B+ 树、B* 树谈到R 树](https://blog.csdn.net/v_JULY_v/article/details/6530142)
 1. [算法可视化](https://www.cs.usfca.edu/~galles/visualization/BTree.html)
-2. [MySQL实战45讲](https://time.geekbang.org/column/intro/139)
+1. [MySQL实战45讲](https://time.geekbang.org/column/intro/139)
+1. [数据库索引，到底是什么做的？](https://mp.weixin.qq.com/s?__biz=MjM5ODYxMDA5OQ==&mid=2651961486&idx=1&sn=b319a87f87797d5d662ab4715666657f&chksm=bd2d0d528a5a84446fb88da7590e6d4e5ad06cfebb5cb57a83cf75056007ba29515c85b9a24c&scene=21#wechat_redirect)
