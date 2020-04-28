@@ -20,6 +20,10 @@ categories: linux
 
 	查看磁盘剩余空间。df: disk free，h为human的意思，即人性化显示
 
+linux根目录满了，怎样快速查看是哪个文件占用空间大:
+du -ah --max-depth=1 /
+du -ah --max-depth=1 /workspace/data | grep 'G' | sort -nr
+
 ### 用户权限
 - useradd
 - userdel
