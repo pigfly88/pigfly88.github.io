@@ -19,6 +19,16 @@ categories: linux
 - df -h
 
 	查看磁盘剩余空间。df: disk free，h为human的意思，即人性化显示
+    
+```
+统计目录大小
+du -m --max-depth=1 /workspace/log/ | sort -nr
+```
+
+```
+查看文件里面匹配内容的前后几行
+cat /workspace/log/test.log | grep -50 'not connect to'
+```
 
 ### 用户权限
 - useradd
