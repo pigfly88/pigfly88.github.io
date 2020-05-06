@@ -30,6 +30,10 @@ du -m --max-depth=1 /workspace/log/ | sort -nr
 cat /workspace/log/test.log | grep -50 'not connect to'
 ```
 
+linux根目录满了，怎样快速查看是哪个文件占用空间大:
+du -ah --max-depth=1 /
+du -ah --max-depth=1 /workspace/data | grep 'G' | sort -nr
+
 ### 用户权限
 - useradd
 - userdel
