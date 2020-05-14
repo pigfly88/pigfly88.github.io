@@ -148,7 +148,11 @@ CGI 解释器进程接着等待并处理来自 Web Server 的下一个连接。
 
 ### PHP-FPM
 
-PHP-FPM 是对于 FastCGI 协议的具体实现，他负责管理一个进程池，来处理来自Web服务器的请求
+PHP-FPM 是对于 FastCGI 协议的具体实现，他负责管理一个进程池，来处理来自Web服务器的请求。
+
+FPM的实现就是创建一个Master进程，在Master进程中创建并监听socket，然后fork出多个Worker进程。各个Worker进程阻塞在accept方法处，有请求到达时开始读取请求数据，然后开始处理请求并返回。Worker进程处理当前请求时不会再接收其他请求，也就是说FPM的Worker进程同时只能响应一个请求，处理完当前请求后才开始accept下一个请求。
+
+PHP-FPM 是一个多进程的 FastCGI 管理程序，是绝大多数 PHP 应用所使用的运行模式。假设我们使用 Nginx 提供 HTTP 服务（Apache 同理），所有客户端发起的请求最先抵达的都是 Nginx，然后 Nginx 通过 FastCGI 协议将请求转发给 PHP-FPM 处理，PHP-FPM 的 Worker 进程 会抢占式的获得 CGI 请求进行处理，这个处理指的就是，等待 PHP 脚本的解析，等待业务处理的结果返回，完成后回收子进程，这整个的过程是阻塞等待的，也就意味着 PHP-FPM 的进程数有多少能处理的请求也就是多少，假设 PHP-FPM 有 200 个 Worker 进程，一个请求将耗费 1 秒的时间，那么简单的来说整个服务器理论上最多可以处理的请求也就是 200 个，QPS 即为 200/s，在高并发的场景下，这样的性能往往是不够的，尽管可以利用 Nginx 作为负载均衡配合多台 PHP-FPM 服务器来提供服务，但由于 PHP-FPM 的阻塞等待的工作模型，一个请求会占用至少一个 MySQL 连接，多节点高并发下会产生大量的 MySQL 连接，而 MySQL 的最大连接数默认值为 100，尽管可以修改，但显而易见该模式没法很好的应对高并发的场景。
 
 ## 参考文档
 - [php手册-安装-Unix 系统下的 Apache 1.3.x](http://php.net/manual/zh/install.unix.apache.php)
@@ -157,3 +161,4 @@ PHP-FPM 是对于 FastCGI 协议的具体实现，他负责管理一个进程池
 - [深入理解PHP内核](http://www.php-internals.com/book/?p=chapt02/02-02-00-overview)
 - [C++静态库与动态库](http://www.cnblogs.com/skynet/p/3372855.html)
 - [CGI、FastCGI和PHP-FPM关系图解](https://www.awaimai.com/371.html)
+- [PHP内核分析-FPM进程管理 贝壳产品技术](https://mp.weixin.qq.com/s?__biz=MzIyMTg0OTExOQ==&mid=2247484362&idx=2&sn=a8c1434b79a1a77db2b35d4dfd0f9737&scene=21#wechat_redirect)
