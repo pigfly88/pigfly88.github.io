@@ -9,8 +9,8 @@
 
 ## 个人能力
 
-- 熟悉PHP，使用过ThinkPHP、Laravel、Symfony、Phalcon框架
-- 熟悉MySQL，掌握数据库设计及优化，熟悉NoSQL，使用过MongoDB、Memcached、Redis
+- 熟悉PHP，使用过ThinkPHP,Laravel,Symfony,Phalcon框架
+- 熟悉MySQL，掌握数据库设计及优化，熟悉NoSQL，使用过MongoDB,Memcached,Redis
 - 熟悉CSS和JavaScript，使用过Bootstrap，Vue框架
 - 熟悉Linux系统和Shell编程
 - 熟悉HTTP协议和网络编程
@@ -20,7 +20,7 @@
 - 2019/7~至今 | **传音控股** | 技术部/PHP开发工程师
 
 	致力于为新兴市场的消费者提供他们最喜爱的智能终端产品和移动互联网服务。主要工作内容：
-	- 整合公司各个业务的数据，清洗并加载到数据仓库，通过数据建模，结合BI工具实现各个维度的数据统计分析和可视化
+	- 整合公司各个业务系统的数据，清洗并加载到数据仓库，通过数据建模，结合BI工具实现各个维度的数据统计分析和可视化
 
 	
 - 2016/7~2019/2 | **球友科技** | 技术部/PHP开发工程师
