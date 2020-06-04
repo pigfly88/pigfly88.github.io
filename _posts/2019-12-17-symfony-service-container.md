@@ -1,6 +1,6 @@
 ---
 layout: post
-category: "mix"
+category: "php"
 title:  "Symfony服务容器"
 ---
 

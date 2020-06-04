@@ -1,3 +1,9 @@
+---
+layout: post
+category: "mysql"
+title:  "使用canal做MySQL到GreenPlum的增量同步"
+---
+
 ##  mysql开启binlog，确保binlog格式为row，并且创建复制的账号
 ```
 [mysqld]
