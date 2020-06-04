@@ -1,7 +1,7 @@
 ---
 layout: post
 category: "mix"
-title:  "ClickHouse"
+title:  "ClickHouse简介"
 ---
 
 ## OLAP场景的特征
