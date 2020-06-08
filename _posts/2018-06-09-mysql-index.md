@@ -73,7 +73,7 @@ B+树的优势：
 
 1. 如果有多个索引，MySQL会优先使用行数最少的索引
 
-1. 最左前缀。例如有索引`INDEX(col1, col2, col3)`，那么在(col1)，(col1, col2)，(col1, col2, col3)上执行WHERE，GROUP BY，ORDER BY操作的时候可以使用索引
+1. 最左前缀。例如有索引`INDEX(col1, col2, col3)`，那么在(col1)，(col1, col2)，(col1, col2, col3)上执行WHERE，GROUP BY，ORDER BY操作的时候可以使用索引。`where col1 like 'a%'`这种方式也是满足最左前缀原则（最左字段上的左边字符串）的
 
 1. 在进行列比较或者表连接的时候，如果列有相同的数据类型和大小以及字符编码，能更好地使用索引
 

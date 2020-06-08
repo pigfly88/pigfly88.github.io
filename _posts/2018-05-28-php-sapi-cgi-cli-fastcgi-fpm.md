@@ -1,7 +1,7 @@
 ---
 layout: post
 category: "php"
-title:  "SAPI,CGI,CLI,FastCGI,FPM的区别"
+title:  "SAPI,CGI,CLI,FastCGI,PHP-FPM的区别"
 ---
 
 ## 什么是SAPI
@@ -150,15 +150,49 @@ CGI 解释器进程接着等待并处理来自 Web Server 的下一个连接。
 
 PHP-FPM 是对于 FastCGI 协议的具体实现，他负责管理一个进程池，来处理来自Web服务器的请求。
 
-FPM的实现就是创建一个Master进程，在Master进程中创建并监听socket，然后fork出多个Worker进程。各个Worker进程阻塞在accept方法处，有请求到达时开始读取请求数据，然后开始处理请求并返回。Worker进程处理当前请求时不会再接收其他请求，也就是说FPM的Worker进程同时只能响应一个请求，处理完当前请求后才开始accept下一个请求。
+FPM的实现就是创建一个Master进程，在Master进程中创建并监听socket，然后fork出多个Worker进程。这些子进程各自accept请求，各个Worker进程阻塞在accept方法处，有请求到达时开始读取请求数据，然后开始处理请求并返回。
 
+注意worker进程的工作方式是抢占/竞争的方式，当一个accept请求过来的时候，谁先拿到算谁的。
+
+Worker进程处理当前请求时不会再接收其他请求，也就是说FPM的Worker进程同时只能响应一个请求，处理完当前请求后才开始accept下一个请求，跟Nginx的epool异步非阻塞是有区别的。
+
+fpm的master进程与worker进程之间不会直接进行通信，master通过共享内存获取worker进程的信息，比如worker进程当前状态、已处理请求数等，当master进程要杀掉一个worker进程时则通过发送信号的方式通知worker进程。
+
+#### php-fpm在高并发场景下的瓶颈
 PHP-FPM 是一个多进程的 FastCGI 管理程序，是绝大多数 PHP 应用所使用的运行模式。假设我们使用 Nginx 提供 HTTP 服务（Apache 同理），所有客户端发起的请求最先抵达的都是 Nginx，然后 Nginx 通过 FastCGI 协议将请求转发给 PHP-FPM 处理，PHP-FPM 的 Worker 进程 会抢占式的获得 CGI 请求进行处理，这个处理指的就是，等待 PHP 脚本的解析，等待业务处理的结果返回，完成后回收子进程，这整个的过程是阻塞等待的，也就意味着 PHP-FPM 的进程数有多少能处理的请求也就是多少，假设 PHP-FPM 有 200 个 Worker 进程，一个请求将耗费 1 秒的时间，那么简单的来说整个服务器理论上最多可以处理的请求也就是 200 个，QPS 即为 200/s，在高并发的场景下，这样的性能往往是不够的，尽管可以利用 Nginx 作为负载均衡配合多台 PHP-FPM 服务器来提供服务，但由于 PHP-FPM 的阻塞等待的工作模型，一个请求会占用至少一个 MySQL 连接，多节点高并发下会产生大量的 MySQL 连接，而 MySQL 的最大连接数默认值为 100，尽管可以修改，但显而易见该模式没法很好的应对高并发的场景。
+
+### php + apache 和 php + nginx 的区别
+apache 是同步多进程模型，一个连接对应一个进程，而 nginx 是异步非阻塞的，多个连接（万级别）可以对应一个进程。
+
+mod_php 通过嵌入 PHP 解释器到 Apache 进程中，只能与 Apache 在单机下配合使用，而nginx可以通过实现了fastcgi协议的php-fpm将请求转发来处理请求，也就是说php和nginx可以放在不同的服务器上，他们之间通过socket通信。
+
+### php cgi和 php-fpm 的生命周期
+
+php cgi/cli模式的生命周期：
+
+![](/images/php-cli-lifecycle.png)
+
+php-fpm的生命周期：
+
+![](/images/php-fpm-lifecycle.png)
+
+1. 模块初始化（MINIT）：php加载每个扩展的代码并调用其模块初始化方法（MINIT），进行一些模块所需变量的申请,内存分配等；
+2. 请求初始化（RINIT）：当一个页面请求发生时，在请求处理前都会经历的一个阶段。对于fpm而言，是在worker进程accept一个请求并读取、解析完请求数据后的一个阶段。在这个阶段内，SAPI层将控制权交给PHP层，PHP初始化本次请求执行脚本所需的环境变量；
+3. php脚本执行：php代码解析执行的过程。Zend引擎接管控制权，将php脚本代码编译成opcodes并顺次执行；
+4. 请求关闭（RSHUTDOWN）：请求处理完后就进入了结束阶段，PHP就会启动清理程序。这个阶段，将flush输出内容、发送http响应内容等，然后它会按顺序调用各个模块的RSHUTDOWN方法。 RSHUTDOWN用以清除程序运行时产生的符号表，也就是对每个变量调用unset函数。
+5. 模块关闭（MSHUTDOWN）：该阶段在SAPI关闭时执行，与模块初始化阶段对应，这个阶段主要是进行资源的清理、php各模块的关闭操作，同时，将回调各扩展的module shutdown钩子函数。这是发生在所有请求都已经结束之后，例如关闭fpm的操作。（这个是对于CGI和CLI等SAPI，没有“下一个请求”，所以SAPI立刻开始关闭。）
+
+fpm对每个请求的处理都是一直在重复执行 2~4步，在第3步中，php的脚本是动态执行的，由于每次都要把php代码翻译成opcode（zend引擎的操作码）比较耗时, 可以通过opcache来提高代码执行效率。
+
+php cli/cgi模式下，每次都会执行MINIT进行模块初始化，而php-fpm只会在启动的时候执行一次MINIT，在关闭的时候执行MSHUTDOWN。
 
 ## 参考文档
 - [php手册-安装-Unix 系统下的 Apache 1.3.x](http://php.net/manual/zh/install.unix.apache.php)
 - [Apache DSO](http://httpd.apache.org/docs/2.4/zh-cn/dso.html)
 - [深入理解Zend SAPIs](http://www.laruence.com/2008/08/12/180.html)
 - [深入理解PHP内核](http://www.php-internals.com/book/?p=chapt02/02-02-00-overview)
+- [PHP7 内核剖析](https://github.com/pangudashu/php7-internal/blob/master/1/fpm.md)
+- [PHP架构与生命周期](https://www.cnblogs.com/jaychan/p/11218047.html)
 - [C++静态库与动态库](http://www.cnblogs.com/skynet/p/3372855.html)
 - [CGI、FastCGI和PHP-FPM关系图解](https://www.awaimai.com/371.html)
 - [PHP内核分析-FPM进程管理 贝壳产品技术](https://mp.weixin.qq.com/s?__biz=MzIyMTg0OTExOQ==&mid=2247484362&idx=2&sn=a8c1434b79a1a77db2b35d4dfd0f9737&scene=21#wechat_redirect)
