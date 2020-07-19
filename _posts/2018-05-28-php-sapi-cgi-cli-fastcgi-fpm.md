@@ -10,7 +10,7 @@ SAPI: Server Application Programming Interface 服务端应用编程接口
 
 ![PHP架构](/images/php-arch.jpg)
 
-PHP的SAPI就是应用层（apache、nginx、cli）和PHP进行数据交互的接口，常见的有Apache的mod_php5、CGI，IIS的ISAPI，还有Shell的CLI，PHP_SAPI常量保存着当前使用的是何种SAPI
+PHP的SAPI就是应用层（apache、nginx、cli）和PHP进行数据交互的接口，常见的有Apache的mod_php5、CGI，IIS的ISAPI，还有Shell的CLI以及nginx的fastcgi，PHP_SAPI常量保存着当前使用的是何种SAPI
 
 ```shell
 C:\Users\think>php -r "echo PHP_SAPI;"
@@ -176,9 +176,9 @@ php-fpm的生命周期：
 
 ![](/images/php-fpm-lifecycle.png)
 
-1. 模块初始化（MINIT）：php加载每个扩展的代码并调用其模块初始化方法（MINIT），进行一些模块所需变量的申请,内存分配等；
-2. 请求初始化（RINIT）：当一个页面请求发生时，在请求处理前都会经历的一个阶段。对于fpm而言，是在worker进程accept一个请求并读取、解析完请求数据后的一个阶段。在这个阶段内，SAPI层将控制权交给PHP层，PHP初始化本次请求执行脚本所需的环境变量；
-3. php脚本执行：php代码解析执行的过程。Zend引擎接管控制权，将php脚本代码编译成opcodes并顺次执行；
+1. 模块初始化（MINIT）：php加载每个扩展的代码并调用其模块初始化方法，在这个阶段 PHP 首先检查 php.ini 文件中定义的扩展模块并对其进行初始化和加载工作，mysql、mbstring、json等等我们需要的功能扩展模块都会在这个阶段完成；
+2. 请求初始化（RINIT）：当一个页面请求发生时，在请求处理前都会经历的一个阶段。对于fpm而言，是在worker进程accept一个请求并读取、解析完请求数据后的一个阶段。在这个阶段内，SAPI层将控制权交给PHP层，PHP初始化本次脚本请求所需要的变量以及变量值内容符号表，我们熟知的 $_SESSION,$_COOKIE,$GLOBAL,$_GET,$_POST 等等超全局变量都会在这个阶段完成初始化的工作；
+3. php脚本执行：php代码解析执行的过程。Zend引擎接管控制权，将php脚本代码编译成opcodes并执行；
 4. 请求关闭（RSHUTDOWN）：请求处理完后就进入了结束阶段，PHP就会启动清理程序。这个阶段，将flush输出内容、发送http响应内容等，然后它会按顺序调用各个模块的RSHUTDOWN方法。 RSHUTDOWN用以清除程序运行时产生的符号表，也就是对每个变量调用unset函数。
 5. 模块关闭（MSHUTDOWN）：该阶段在SAPI关闭时执行，与模块初始化阶段对应，这个阶段主要是进行资源的清理、php各模块的关闭操作，同时，将回调各扩展的module shutdown钩子函数。这是发生在所有请求都已经结束之后，例如关闭fpm的操作。（这个是对于CGI和CLI等SAPI，没有“下一个请求”，所以SAPI立刻开始关闭。）
 
