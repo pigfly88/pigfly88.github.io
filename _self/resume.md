@@ -9,14 +9,17 @@
 
 ## 个人能力
 
-- 熟悉PHP，使用过ThinkPHP,Laravel,Symfony,Yii,Phalcon框架
+- 熟悉PHP，使用过Laravel,Symfony,Yii,ThinkPHP,Phalcon框架
 - 熟悉MySQL，掌握数据库设计及优化，熟悉NoSQL，使用过MongoDB,Memcached,Redis
 - 熟悉CSS和JavaScript，使用过Bootstrap，Vue框架
 - 熟悉Linux系统和Shell编程
 - 熟悉HTTP协议和Socket网络编程
 
 ## 工作经验
+- 2020/6~至今 | **光汇石油** | 技术部/PHP开发工程师
 
+	负责API及管理后台的开发
+	
 - 2019/7~2020/6 | **传音控股** | 技术部/PHP开发工程师
 
 	致力于为新兴市场的消费者提供他们最喜爱的智能终端产品和移动互联网服务。主要工作内容：
