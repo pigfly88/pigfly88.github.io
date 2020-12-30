@@ -22,6 +22,8 @@ Alt + F7 # 查看函数/变量在哪里被使用
 
 Ctrl + Shift + 箭头 # 移动行
 
+Ctrl + D # 复制当前行到下一行
+
 Ctrl + G # 跳转到某一行
 
 Ctrl + K # Git commit

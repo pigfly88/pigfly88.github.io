@@ -6,7 +6,7 @@ title:  "Redis深度历险学习笔记"
 
 Redis应用场景：缓存、分布式锁、消息队列、限流
 
-Redis支持的数据结构：string, hash, list, set, zset, bitmap, hyperloglog, geo， pub/sub, 布隆过滤器
+Redis支持的数据结构：string, hash, list, set, zset, bitmap, hyperloglog, geo, pub/sub, 布隆过滤器
 
 list是用快速链表(linkedlist + ziplist)实现的，插入和删除的速度非常快(push, pop)，时间复杂度是0(1)，但索引定位比较慢(lindex, ltrim)，时间复杂度为O(n)
 
@@ -53,9 +53,9 @@ end
 
 #### 队列空了怎么办？
 
-如果队列空了，客户端就会陷入 pop 的死循环，空轮询不但拉高了客户端的 CPU，redis 的 QPS 也会被拉高，如果这样空轮询的客户端有几十来个，Redis 的慢查询可能会显著增多。在程序里面sleep可以解决，但是没办法对时间做精准控制，会导致消息的延迟增大。Redis 提供了blpop/brpop实现了队列为空时的阻塞读，阻塞读在队列没有数据的时候，会立即进入休眠状态，一旦数据到来，则立刻醒过来。消息的延迟几乎为零。
+如果队列空了，客户端就会陷入 pop 的死循环，空轮询不但拉高了客户端的 CPU，redis 的 QPS 也会被拉高，如果这样空轮询的客户端有几十来个，Redis 的慢查询可能会显著增多。在程序里面sleep可以解决，但是没办法对时间做精准控制，会导致消息的延迟增大。Redis 提供了**blpop/brpop**实现了队列为空时的阻塞读，阻塞读在队列没有数据的时候，会立即进入休眠状态，一旦数据到来，则立刻醒过来。消息的延迟几乎为零。
 
-注意阻塞度可能会导致客户端的空闲连接超时自动断开，这时候要做好异常捕获进行重试。
+注意阻塞读可能会导致客户端的空闲连接超时自动断开，这时候要做好异常捕获进行重试。
 
 
 #### 更安全的队列
@@ -114,12 +114,17 @@ bit: 位，是计算机中最小的数据单位（0或1）
 
 byte: 字节，基本计量单位，1字节=8位，1字节可以存储1个英文字母或者半个汉字
 
+```shell
 > set test1 'h'
-OK
-> bitfield test1 get u8 0
-1) (integer) 104 # h的ASCII码就是104，转换成二进制就是1101000，这就是字符h在计算机内部存储的内容
 
-### 签到统计
+OK
+
+> bitfield test1 get u8 0
+
+1) (integer) 104 # h的ASCII码就是104，转换成二进制就是1101000，这就是字符h在计算机内部存储的内容
+```
+
+#### 签到统计
 
 ```shell
 # 签到
@@ -183,6 +188,28 @@ OK
 
 使用场景：内容推荐系统去重、爬虫URL去重、垃圾邮箱过滤、防止缓存穿透
 
+### 简单限流
+
+例子：每分钟限制
+```
+incr act:uid:minute # 缺点是分钟的界限是自然分钟，非连续的可滑动的。
+```
+
+```
+key = act:uid
+zadd microtime microtime
+zremrangebyscore key 0 microtime-60 # 移除60秒之前的数据
+zcard key
+expire key 60
+```
+
+### 漏斗限流
+
+```
+cl.throttle laoqian:reply 15 30 60 1
+```
+
+上面这个指令的意思是允许「用户老钱回复行为」的频率为每 60s 最多 30 次(漏水速率)，漏斗的初始容量为 15，也就是说一开始可以连续回复 15 个帖子，然后才开始受漏水速率的影响。
 
 ### 持久化
 
@@ -250,7 +277,7 @@ appendfsync everysec # 默认，每秒刷盘一次，最多丢失1~2秒的数据
 - A - Availability ，可用性
 - P - Partition tolerance ，分区容忍性
 
-分布式系统的节点往往都是分布在不同的机器上进行网络隔离开的，这意味着必然会有网络断开的风险，这个网络断开的场景的专业词汇叫着**网络分区**。
+分布式系统的节点往往都是分布在不同的机器上进行网络隔离开的，这意味着必然会有网络断开的风险，这个网络断开的场景的专业词汇叫**网络分区**。
 
 一句话概括 CAP 原理就是：**网络分区发生时，一致性和可用性两难全**。
 
@@ -262,7 +289,31 @@ Redis可以使用主从同步，从从同步。快照同步是一个非常耗费
 
 ### 李代桃僵-Sentinel
 
-Redis Sentinal着眼于高可用，在master宕机时会自动将slave提升为master，继续提供服务。
+sentinel是redis高可用的解决方案，sentinel系统可以监视一个或者多个master服务，当某个master服务下线时，自动将该master下的某个slave节点升级为master，其他slave节点自动指向新的master同步数据。
+
+sentinel一般会部署多个节点以防止sentinel本身出现单点故障，客户端先连接sentinel获得主节点地址，然后再去连接主节点进行数据交互。
+
+![](/images/redis-sentinel.webp)
+
+```
+docker build .
+docker run -d --name redis-sentinel-getstart -v ${PWD}/conf:/etc/redis redis:4.0
+docker exec -it redis-sentinel-getstart bash
+nohup redis-server --port 6380 --slaveof 127.0.0.1 6379 &
+nohup redis-server --port 6381 --slaveof 127.0.0.1 6379 &
+
+nohup redis-server /etc/redis/sentinel-26379.conf --sentinel &
+nohup redis-server /etc/redis/sentinel-26380.conf --sentinel &
+nohup redis-server /etc/redis/sentinel-26381.conf --sentinel &
+
+redis-cli -p 26379 sentinel get-master-addr-by-name mymaster
+```
+
+```php
+$sentinel = new RedisSentinel('127.0.0.1', 26379, 2.5); // 2.5 sec timeout.
+$sentinel->getMasterAddrByName('mymaster'); // Return the ip and port number of the master with that name.
+$sentinel->sentinels('mymaster'); // Return a list of sentinel instances for this master, and their state.
+```
 
 Redis Cluster着眼于扩展性，在单个redis内存不足时，使用Cluster进行分片存储。
 
