@@ -107,6 +107,11 @@ return value[1]
 
 ### 节衣缩食-位图
 
+在我们平时开发过程中，会有一些 bool 型数据需要存取，比如用户一年的签到记录，签了是 1，没签是 0，要记录 365 天。如果使用普通的 key/value，每个用户要记录 365 个，当用户上亿的时候，需要的存储空间是惊人的。
+
+为了解决这个问题，Redis 提供了位图数据结构，这样每天的签到记录只占据一个位，365 天就是 365 个位，46 个字节 (一个稍长一点的字符串) 就可以完全容纳下，这就大大节约了存储空间。
+
+位图不是特殊的数据结构，它的内容其实就是普通的字符串，也就是 byte 数组。
 
 #### bit,byte和字符的关系
 
@@ -145,9 +150,8 @@ OK
 (integer) 7
 
 # 获取8月份31天的签到情况
-# 1990197248通过decbin转成二进制是：1110110101000000000000000000000
 > bitfield signin:202008:1 get u31 0
-1) (integer) 1990197248
+1) (integer) 1990197248 # 1990197248通过decbin转成二进制是：1110110101000000000000000000000
 
 # 获取首次签到的日期
 > bitpos signin:202008:1 1
@@ -195,12 +199,18 @@ OK
 incr act:uid:minute # 缺点是分钟的界限是自然分钟，非连续的可滑动的。
 ```
 
+使用zset来实现任意60秒内的频率限制（滑动窗口）
 ```
+maxCount = 100
 key = act:uid
-zadd microtime microtime
-zremrangebyscore key 0 microtime-60 # 移除60秒之前的数据
-zcard key
-expire key 60
+pipe.multi()
+pipe.zadd(microtime, microtime)
+pipe.zremrangebyscore(key, 0, microtime-60) # 移除60秒之前的数据
+count = pipe.zcard(key)
+pipe.expire(key, 60)
+pipe.exec()
+pipe.close()
+return count<=maxCount
 ```
 
 ### 漏斗限流

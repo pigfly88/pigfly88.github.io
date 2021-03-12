@@ -4,7 +4,7 @@ HTTP是无状态的，如果要把一些数据保存到客户端，然后服务�
 由于cookie在每次请求都会带上（可以设置path，只有在该路径下的请求才发送），在一定程度上造成网络开销的浪费，相比之下Local Storage会是一个比较好的方案。
 
 ### session
-cookie是保存在客户端的，而session是借助一个特殊的cookie把数据保存到服务端，在PHP中，这个特殊的cookie叫做PHPSESSID。
+cookie是保存在客户端的，而session是通过一个特殊的cookie(PHPSESSID)来搭桥，把数据保存到服务端。这个cookie就相当于一个key，服务端通过这个key去找到对应的session。
 
 ### cookie 和 session 的区别与联系
 
