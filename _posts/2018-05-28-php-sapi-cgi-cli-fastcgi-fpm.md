@@ -154,7 +154,7 @@ FPM的实现就是创建一个Master进程，在Master进程中创建并监听so
 
 注意worker进程的工作方式是抢占/竞争的方式，当一个accept请求过来的时候，谁先拿到算谁的。
 
-Worker进程处理当前请求时不会再接收其他请求，也就是说FPM的Worker进程同时只能响应一个请求，处理完当前请求后才开始accept下一个请求，跟Nginx的epool异步非阻塞是有区别的。
+Worker进程处理当前请求时不会再接收其他请求，也就是说FPM的Worker进程同时只能响应一个请求，处理完当前请求后才开始accept下一个请求，跟Nginx的epoll异步非阻塞是有区别的。
 
 fpm的master进程与worker进程之间不会直接进行通信，master通过共享内存获取worker进程的信息，比如worker进程当前状态、已处理请求数等，当master进程要杀掉一个worker进程时则通过发送信号的方式通知worker进程。
 
