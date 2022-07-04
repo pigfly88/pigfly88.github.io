@@ -62,6 +62,6 @@ netstat -lnp | grep 80
 添加PATH变量：
 ```
 vi /etc/profile
-export PATH=/usr/local/bin:$PATH
-soruce /etc/profile
+export PATH=/usr/local/php/bin:$PATH
+source /etc/profile
 ```
