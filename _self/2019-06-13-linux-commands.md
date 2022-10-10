@@ -50,6 +50,13 @@ du -ah --max-depth=1 /
 du -ah --max-depth=1 /workspace/data | grep 'G' | sort -nr
 ```
 
+### 系统相关
+```shell
+$ uptime
+02:34:03 up 2 days, 20:14, 1 user, load average: 0.63, 0.83, 0.88
+```
+后面三个数值为过去1分钟、5分钟、15分钟的平均负载，平均负载即活跃进程数。
+比如当平均负载为2时，在只有2个CPU的系统上，意味着所有的CPU都刚好被完全占用。在4个CPU的系统上，意味着CPU有50%的空闲。
 
 ### 网络相关
 
