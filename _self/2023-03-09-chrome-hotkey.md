@@ -20,4 +20,4 @@ categories: 工具
 
 8、 Ctrl + w  关闭当前标签页。
 
-9、Ctrl + 1 到 Ctrl + 8跳转到特定标签页，Ctrl + 9跳转到最后一个标签。
+9、Ctrl + PgUp 切到上一个 tab，Ctrl + PgDn 切到下一个 tab。
